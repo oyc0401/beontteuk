@@ -12,7 +12,6 @@ class AccountApi {
         "username": id,
         "password": password,
       },
-      token: InMatAuth.instance.currentUser?.token,
     );
     return await inMatHttp.execute();
   }

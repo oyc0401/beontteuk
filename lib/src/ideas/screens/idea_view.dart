@@ -32,8 +32,8 @@ class _IdeaViewState extends State<IdeaView> {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel('MessageInvoker', onMessageReceived: (s) {
         print(s.message);
-        Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => BuyPage()));
+        Navigator.push(
+            context, CupertinoPageRoute(builder: (context) => BuyPage()));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(s.message),
         ));
@@ -51,9 +51,19 @@ class _IdeaViewState extends State<IdeaView> {
             return NavigationDecision.navigate;
           },
         ),
-      )
-      // ..loadRequest(Uri.dataFromString(data, mimeType: 'text/html'));
-    ..loadRequest(Uri.parse('http://localhost:3000/'));
+      );
+    // ..loadRequest(Uri.dataFromString(data, mimeType: 'text/html'));
+
+    Map body = {
+      'name': 'rabbit',
+    };
+    List<int> list = json.encode(body).codeUnits;
+
+    _controller.loadRequest(
+      Uri.parse('http://localhost:3000/'),
+      method: LoadRequestMethod.post,
+      body: Uint8List.fromList(list),
+    );
 
     success = true;
     setState(() {});

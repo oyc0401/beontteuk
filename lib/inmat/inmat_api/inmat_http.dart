@@ -19,7 +19,7 @@ class InMatHttp {
   final String? token;
 
   String get _url {
-    return "http://prod.sogogi.shop:9000$url";
+    return "http://54.83.101.17:8080$url";
   }
 
   dynamic execute() async {
@@ -39,7 +39,6 @@ class InMatHttp {
         break;
     }
 // print(response);
-    _throwException(response);
 
     /// 디버그 할 때 [debug]를 true 로 하면 모든 통신의 값을 출력한다.
     const bool debug = true;
@@ -49,32 +48,17 @@ class InMatHttp {
 
     return response["result"];
   }
+}
 
-  _throwException(Map response) {
-    if (response['isSuccess'] == false) {
-      print("$_message 실패!");
-      int code = response['code'];
-      switch (code) {
-        case 401:
-          throw ExpirationAccessToken();
-        case 403:
-          throw AccessDenied();
-        case 2000:
-          throw Invalidate();
-        case 3010:
-          throw SignInFailed();
-        case 3030:
-          throw OverlappingAccount();
-        case 3035:
-          throw OverlappingNickName();
-        case 4000:
-          throw DataBaseFailed();
-        default:
-          throw Exception(
-              'Failed to $_message: ${response['code']}, ${response['message']}');
+void main() async {
+  HttpModule module = HttpModule();
+  var response = await module.post(
+    url: 'http://54.83.101.17:8080/account/signup',
+    body: {
+      "nickname": "아아",
+    },
+    token: 'token',
+  );
 
-        // Failed to 게시글 삭제: 3200, 게시글 삭제에 실패하였습니다.
-      }
-    }
-  }
+  print(response);
 }

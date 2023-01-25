@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'inmat_exception.dart';
 
 class HttpModule {
+
+
   Future<Map> get({
     required String url,
     String? token,
@@ -65,9 +67,22 @@ class HttpModule {
   void _throwHttpException(Response response) {
     switch (response.statusCode) {
       case 200:
+      case 201:
         return;
       case 401:
         throw ExpirationAccessToken();
+      case 403:
+        throw AccessDenied();
+      case 2000:
+        throw Invalidate();
+      case 3010:
+        throw SignInFailed();
+      case 3030:
+        throw OverlappingAccount();
+      case 3035:
+        throw OverlappingNickName();
+      case 4000:
+        throw DataBaseFailed();
       default:
         throw Exception(
             'unexpected status code: ${response.statusCode}, ${utf8.decode(response.bodyBytes)}');

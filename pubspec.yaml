@@ -97,6 +97,21 @@ flutter:
 
   assets:
     - assets/about_us.html
+    - assets/icons/
+
+
+
+  fonts:
+    - family: NotoSansKR
+      fonts:
+        - asset: fonts/Noto_Sans_KR/NotoSansKR-Regular.otf
+        - asset: fonts/Noto_Sans_KR/NotoSansKR-Bold.otf
+          weight: 700
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto/Roboto-Regular.ttf
+        - asset: fonts/Roboto/Roboto-Bold.ttf
+          weight: 700
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
