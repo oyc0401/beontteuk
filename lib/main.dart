@@ -1,11 +1,14 @@
 import 'package:beontteuk/auth_check.dart';
+import 'package:beontteuk/inmat/auth/inmat_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'src/navigation/navigation.dart';
 import 'utils/colorss.dart';
 import 'utils/letter_space_text_style.dart';
 
-void main() {
+void main() async{
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await InMatAuth.initialize();
   runApp(const MyApp());
 }
 

@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
         // leadingWidth: 10,
         titleSpacing: 0,
         // leading: Container(color: Colors.blue,),
-        leadingWidth: 40,
+        // leadingWidth: 40,
         // leading: IconButton(
         //   icon: Icon(Icons.add),
         //   onPressed: () {
@@ -66,7 +66,9 @@ class LoginPage extends StatelessWidget {
                   LoginButton(
                     onclick: () {
                       Provider.of<EmailSignInModel>(context, listen: false)
-                          .login();
+                          .login(context);
+
+
                     },
                   ),
                   const SizedBox(height: 18),

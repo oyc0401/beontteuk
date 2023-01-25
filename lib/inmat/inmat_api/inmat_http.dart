@@ -10,7 +10,10 @@ class InMatHttp {
     required String? message,
     this.body,
     this.token,
-  }) : _message = message ?? "이름없는 http 통신";
+  }) : _message = message ?? "이름없는 http 통신" {
+    // 나중에 토큰방식으로 바꾸면 이 코드 삭제 해야함
+    body?.addAll({'user_id': token});
+  }
 
   Http how;
   String url;

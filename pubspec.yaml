@@ -64,6 +64,7 @@ dependencies:
   file_picker: ^5.2.5
 
   webview_flutter: ^4.0.2
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:

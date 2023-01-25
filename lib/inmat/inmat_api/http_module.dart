@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 import 'inmat_exception.dart';
 
 class HttpModule {
-
-
   Future<Map> get({
     required String url,
     String? token,
@@ -65,10 +63,16 @@ class HttpModule {
   }
 
   void _throwHttpException(Response response) {
+    if(!(response.statusCode==200 ||response.statusCode==201)){
+      print('예외 code 발생 ${response.statusCode}: ${utf8.decode(response.bodyBytes)}');
+    }
+
     switch (response.statusCode) {
       case 200:
       case 201:
         return;
+      case 400:
+        throw SignInFailed();
       case 401:
         throw ExpirationAccessToken();
       case 403:

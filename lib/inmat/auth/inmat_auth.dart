@@ -10,10 +10,10 @@ import 'user_model.dart';
 
 class InMatAuth {
   /// Initialized InMatAuth
-  static  InMatAuth? _instance;
+  static late  InMatAuth _instance;
 
   /// Get InMatAuth
-  static InMatAuth? get instance => _instance;
+  static InMatAuth get instance => _instance;
 
   /// SingleTon Pattern
   InMatAuth._(this._tokenController, this._profileController, this._authStatus);
@@ -64,7 +64,7 @@ class InMatAuth {
 
     // [ExpirationAccessToken], [AccessDenied]등 의 예외가 있지만
     // 여기선 로그인 직후에 가져오는 것이라 생략한다.
-    ProfileModel profile = await GetToken.getProfile(tokenModel.token);
+    ProfileModel profile = await GetToken.getProfile('${tokenModel.user_id}');
     _profileController.set(profile);
   }
 
@@ -92,33 +92,33 @@ class InMatAuth {
   // }
 
   static Future<InMatAuth> _init() async {
-    // DB 에서 토큰 가져옴.
-    TokenModel? DBToken = await GetToken.getTokenInDB();
-
-    if (DBToken != null) {
-      try {
-        ProfileModel profile = await GetToken.getProfile(DBToken.token);
-
-        return InMatAuth._(TokenController(DBToken), ProfileController(profile),
-            AuthStatus.user);
-      } on ExpirationAccessToken {
-        // 액세스 토큰 만료
-        print("InMatAuth: 토큰이 만료되었습니다.");
-        // 토큰이 만료되었으면
-        // DB 삭제
-        DataBaseHandler.delete();
-
-        print("InMatAuth: 다시 로그인 해주세요.");
-        return InMatAuth._(
-            TokenController(), ProfileController(), AuthStatus.reSignIn);
-      } on AccessDenied {
-        // 접근 권한 없음
-        print("InMatAuth: 접근 권한이 없습니다.");
-      } catch (e) {
-        // 오류 메세지 띄우기
-        print('InMatAuth: $e');
-      }
-    }
+    // // DB 에서 토큰 가져옴.
+    // TokenModel? DBToken = await GetToken.getTokenInDB();
+    //
+    // if (DBToken != null) {
+    //   try {
+    //     ProfileModel profile = await GetToken.getProfile(DBToken.token);
+    //
+    //     return InMatAuth._(TokenController(DBToken), ProfileController(profile),
+    //         AuthStatus.user);
+    //   } on ExpirationAccessToken {
+    //     // 액세스 토큰 만료
+    //     print("InMatAuth: 토큰이 만료되었습니다.");
+    //     // 토큰이 만료되었으면
+    //     // DB 삭제
+    //     DataBaseHandler.delete();
+    //
+    //     print("InMatAuth: 다시 로그인 해주세요.");
+    //     return InMatAuth._(
+    //         TokenController(), ProfileController(), AuthStatus.reSignIn);
+    //   } on AccessDenied {
+    //     // 접근 권한 없음
+    //     print("InMatAuth: 접근 권한이 없습니다.");
+    //   } catch (e) {
+    //     // 오류 메세지 띄우기
+    //     print('InMatAuth: $e');
+    //   }
+    // }
 
     print('InMatAuth: 비 회원 상태');
     return InMatAuth._(

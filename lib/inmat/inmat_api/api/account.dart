@@ -40,12 +40,12 @@ class AccountApi {
   }
 
   ///닉네임 중복 체크 API
-  Future<bool> checkNickName(String nickname) async {
+  Future<Map> checkNickName(String nickname) async {
     InMatHttp inMatHttp = InMatHttp(
       Http.post,
       message: "닉네임 중복 체크",
       url: "/account/check-duplication",
-      body: {'nickname': nickname},
+      body: {'nickname': nickname,"ㅇㄴㅁㅇ":"ㅇㄴㅁ"},
     );
     return await inMatHttp.execute();
   }

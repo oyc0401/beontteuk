@@ -1,4 +1,11 @@
+import 'dart:convert';
+
+import 'package:beontteuk/inmat/auth/inmat_auth.dart';
 import 'package:beontteuk/inmat/inmat_api/http_module.dart';
+import 'package:beontteuk/inmat/inmat_api/inmat_exception.dart';
+import 'package:beontteuk/src/navigation/navigation.dart';
+import 'package:crypto/crypto.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,8 +20,8 @@ void showMessage(String text) {
 }
 
 class EmailSignInModel with ChangeNotifier {
-  String _username = "test123";
-  String _password = "qwe12345&&";
+  String _username = "";
+  String _password = "";
 
   bool isAutoLogin = true;
   bool isSaveID = true;
@@ -28,13 +35,13 @@ class EmailSignInModel with ChangeNotifier {
 
   setID(String username) {
     _username = username;
-    warning=false;
+    warning = false;
     notifyListeners();
   }
 
   setPassword(String password) {
     _password = password;
-    warning=false;
+    warning = false;
     notifyListeners();
   }
 
@@ -48,27 +55,36 @@ class EmailSignInModel with ChangeNotifier {
     notifyListeners();
   }
 
-  login() async {
+  login(BuildContext context) async {
+    ///TODO 테스트 계정
+    _password = 'qwe12345&&';
+    _username = 'test123@gmail.com';
+
     print('id      : $id');
     print('password: $password');
 
-    warning = true;
-    onceWrong = true;
+    try {
+      var bytes = utf8.encode(password);
+      Digest digest = sha1.convert(bytes);
+      print(digest.toString());
+
+      await InMatAuth.instance.signInEmail(id, digest.toString());
+      showMessage('로그인 성공: $id, ${digest.toString()}');
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        CupertinoPageRoute(builder: (context) => NavigatePage()),
+        (route) => false,
+      );
+    } on SignInFailed {
+      // 로그인 실패 메세지 띄우기
+      showMessage('없는 아이디이거나 비밀번호가 틀렸습니다.\n$id, $password');
+      warning = true;
+      onceWrong = true;
+    } catch (e) {
+      showMessage('$e');
+    }
+
     notifyListeners();
-
-
-    //"test123", "qwe12345&&");
-
-    // try {
-    //   await InMatAuth.instance.signInEmail(id, password);
-    //   showMessage('로그인 성공: $id, $password');
-    // } on SignInFailed {
-    //   // 로그인 실패 메세지 띄우기
-    //   showMessage('없는 아이디이거나 비밀번호가 틀렸습니다.\n$id, $password');
-    // } catch (e) {
-    //   // 오류 메세지 띄우기
-    //   print(e);
-    //   showMessage('$e');
-    // }
   }
 }

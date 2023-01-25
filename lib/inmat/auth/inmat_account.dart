@@ -1,3 +1,5 @@
+import 'package:beontteuk/inmat/inmat_api/inmat_exception.dart';
+
 import '../inmat_api/inmat_api.dart';
 
 class InMatAccount {
@@ -16,7 +18,15 @@ class InMatAccount {
   }
 
   static Future<bool> checkNickName(String nickName) async {
-    return await InMatApi.account.checkNickName(nickName);
+    try {
+      Map map = await InMatApi.account.checkNickName(nickName);
+      return map['success'] ?? false;
+    } on SignInFailed {
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 
   static Future<bool> checkId({
@@ -26,4 +36,3 @@ class InMatAccount {
     return message == "아이디 사용가능!";
   }
 }
-
