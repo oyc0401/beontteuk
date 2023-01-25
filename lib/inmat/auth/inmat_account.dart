@@ -1,28 +1,22 @@
-
 import '../inmat_api/inmat_api.dart';
 
 class InMatAccount {
   static registerEmail({
-    required String id,
+    required String name,
     required String password,
-    required Profile profile,
+    required String email,
+    required String nickname,
   }) async {
-    await InMatApi.account.registerEmail(
-      id: id,
+    await InMatApi.account.register(
+      name: name,
       password: password,
-      email: profile.email,
-      age: profile.age,
-      gender: profile.gender,
-      nickName: profile.nickName,
-      phoneNumber: profile.phoneNumber,
+      email: email,
+      nickname: nickname,
     );
   }
 
-  static Future<bool> checkNickName({
-    required String nickName,
-  }) async {
-    String message = await InMatApi.account.checkNickName(nickName: nickName);
-    return message == "닉네임 사용가능!";
+  static Future<bool> checkNickName(String nickName) async {
+    return await InMatApi.account.checkNickName(nickName);
   }
 
   static Future<bool> checkId({
@@ -33,18 +27,3 @@ class InMatAccount {
   }
 }
 
-class Profile {
-  Profile({
-    required this.age,
-    required this.email,
-    required this.gender,
-    required this.nickName,
-    required this.phoneNumber,
-  });
-
-  int age;
-  String email;
-  String gender;
-  String nickName;
-  String phoneNumber;
-}

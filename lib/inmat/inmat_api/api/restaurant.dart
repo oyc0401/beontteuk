@@ -7,7 +7,7 @@ class RestaurantApi {
       Http.get,
       message: "홈 화면 불러오기",
       url: "/restaurants",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
@@ -18,7 +18,7 @@ class RestaurantApi {
       Http.get,
       message: "음식점 불러오기",
       url: "/restaurants/$id",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
@@ -29,7 +29,7 @@ class RestaurantApi {
       Http.post,
       message: "음식점 하트 설정",
       url: "/restaurants/$id/like",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
@@ -40,7 +40,7 @@ class RestaurantApi {
       Http.patch,
       message: "음식점 하트 취소",
       url: "/restaurants/$id/like",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
@@ -57,7 +57,7 @@ class RestaurantApi {
         // "imgUrl": "www.test.test",
         "ratingStar": star,
       },
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
@@ -71,7 +71,7 @@ class RestaurantApi {
       Http.get,
       message: "리뷰 상세 조회",
       url: "/restaurants/$restaurantId/reviews/$reviewId",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
@@ -82,7 +82,7 @@ class RestaurantApi {
       Http.get,
       message: "리뷰 리스트 조회",
       url: "/restaurants/$restaurantId/reviews",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return (await inMatHttp.execute()).cast<Map>();
   }
@@ -93,7 +93,7 @@ class RestaurantApi {
       Http.get,
       message: "검색창 랭킹 불러오기",
       url: "/restaurants/search",
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return (await inMatHttp.execute()).cast<Map>();
   }
@@ -107,7 +107,7 @@ class RestaurantApi {
       // body: {
       //   "search": word,
       // },
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return (await inMatHttp.execute()).cast<Map>();
   }
@@ -121,7 +121,7 @@ class RestaurantApi {
       message: "음식점 추가하기",
       url: "/restaurants",
       body: body,
-      token: InMatAuth.instance.currentUser?.token,
+      token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }

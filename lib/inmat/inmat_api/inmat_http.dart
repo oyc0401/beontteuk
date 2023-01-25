@@ -50,15 +50,15 @@ class InMatHttp {
   }
 }
 
-void main() async {
-  HttpModule module = HttpModule();
-  var response = await module.post(
-    url: 'http://54.83.101.17:8080/account/signup',
-    body: {
-      "nickname": "아아",
-    },
-    token: 'token',
-  );
-
-  print(response);
-}
+// void main() async {
+//   HttpModule module = HttpModule();
+//   var response = await module.post(
+//     url: 'http://54.83.101.17:8080/account/signup',
+//     body: {
+//       "nickname": "아아",
+//     },
+//     token: 'token',
+//   );
+//
+//   print(response);
+// }

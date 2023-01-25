@@ -1,3 +1,5 @@
+import 'package:beontteuk/inmat/auth/inmat_account.dart';
+import 'package:beontteuk/inmat/inmat_api/http_module.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -79,20 +81,27 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: 109,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff5735e2)),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              '중복확인',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: -0.32,
-                                color: Color(0xff5735e2),
+                        InkWell(
+                          onTap: ()async{
+
+                            bool can=await InMatAccount.checkNickName("안ㅁ아지");
+                            print(can);
+                          },
+                          child: Container(
+                            width: 109,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: const Color(0xff5735e2)),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                '중복확인',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.32,
+                                  color: Color(0xff5735e2),
+                                ),
                               ),
                             ),
                           ),

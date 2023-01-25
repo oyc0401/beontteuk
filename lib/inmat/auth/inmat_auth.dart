@@ -10,10 +10,10 @@ import 'user_model.dart';
 
 class InMatAuth {
   /// Initialized InMatAuth
-  static late InMatAuth _instance;
+  static  InMatAuth? _instance;
 
   /// Get InMatAuth
-  static InMatAuth get instance => _instance;
+  static InMatAuth? get instance => _instance;
 
   /// SingleTon Pattern
   InMatAuth._(this._tokenController, this._profileController, this._authStatus);
@@ -28,6 +28,7 @@ class InMatAuth {
   /// Return current user
   /// if return null, you haven't token
   User? get currentUser {
+
     if (_tokenController.tokenIsEmpty) {
       return null;
     }
@@ -67,28 +68,28 @@ class InMatAuth {
     _profileController.set(profile);
   }
 
-  /// 프로필 정보를 업데이트 한다. (프로필 사진은 아직 수정 불가능)
-  Future<void> updateProfile({
-    required int age,
-    required String gender,
-    required String nickName,
-    required String? profileImgUrl,
-  }) async {
-    await InMatApi.account.updateProfile(
-      age: age,
-      gender: gender,
-      nickName: nickName,
-      profileImgUrl: profileImgUrl,
-    );
-    _profileController.set(
-      ProfileModel(
-        age: age,
-        gender: gender,
-        nickName: nickName,
-        profileImgUrl: profileImgUrl,
-      ),
-    );
-  }
+  // /// 프로필 정보를 업데이트 한다. (프로필 사진은 아직 수정 불가능)
+  // Future<void> updateProfile({
+  //   required int age,
+  //   required String gender,
+  //   required String nickName,
+  //   required String? profileImgUrl,
+  // }) async {
+  //   await InMatApi.account.updateProfile(
+  //     age: age,
+  //     gender: gender,
+  //     nickName: nickName,
+  //     profileImgUrl: profileImgUrl,
+  //   );
+  //   _profileController.set(
+  //     ProfileModel(
+  //       age: age,
+  //       gender: gender,
+  //       nickName: nickName,
+  //       profileImgUrl: profileImgUrl,
+  //     ),
+  //   );
+  // }
 
   static Future<InMatAuth> _init() async {
     // DB 에서 토큰 가져옴.
