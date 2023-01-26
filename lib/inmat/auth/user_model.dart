@@ -10,18 +10,18 @@ class User {
   final ProfileModel profileModel;
   final TokenModel tokenModel;
 
-  int get age => profileModel.age;
+  String get email => profileModel.email;
 
-  String get gender => profileModel.gender;
+  String get created => profileModel.created;
 
-  String get nickName => profileModel.nickName;
+  String get nickname => profileModel.nickname;
 
-  String? get profileImgUrl => profileModel.profileImgUrl;
+  String? get profile => profileModel.profile;
 
   String get token => '${tokenModel.user_id}';
 
   @override
   String toString() {
-    return "User (age: $age, gender: $gender, nickName: $nickName, profileImgUrl: $profileImgUrl, token: $token)";
+    return "User (email: $email, nickname: $nickname, profile: $profile, created: $created)";
   }
 }

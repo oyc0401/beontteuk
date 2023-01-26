@@ -27,9 +27,10 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.white,
         appBarTheme: const AppBarTheme(
           elevation: 0.0,
-          centerTitle: false,
+          // centerTitle: false,
+          // centerTitle: true,
           backgroundColor: Colors.white,
-          titleTextStyle: TextStylee(fontSize: 18, color: Colorss.text1),
+          titleTextStyle: LetterStyle(fontSize: 18, color: Colorss.text1),
           iconTheme: IconThemeData(
             color: Colorss.text1,
           ),

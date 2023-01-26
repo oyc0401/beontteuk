@@ -50,19 +50,25 @@ class AccountApi {
     return await inMatHttp.execute();
   }
 
-  /// 이 밑으로는 추가 안함 ///
-
-
   /// 마이페이지 조회 API
   Future<Map<String, dynamic>> getProfile({required String token}) async {
     InMatHttp inMatHttp = InMatHttp(
       Http.get,
       message: "프로필 불러오기",
-      url: "/users/profiles",
+      url: "/userinfo/$token",
       token: token,
     );
-    return await inMatHttp.execute();
+    List list=await inMatHttp.execute();
+    if(list.isEmpty){
+      throw ExpirationAccessToken();
+    }
+    return list[0];
   }
+
+  /// 이 밑으로는 추가 안함 ///
+
+
+
 
 
 

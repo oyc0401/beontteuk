@@ -1,6 +1,28 @@
 part of '../inmat_api.dart';
 
 class CommunityApi {
+  Future<List<Map>> getIdeas() async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "전체 아이디어 불러오기",
+      url: "/trade/",
+      // token: InMatAuth.instance?.currentUser?.token,
+    );
+    return (await inMatHttp.execute()).cast<Map>();
+  }
+
+  Future<Map> getIdea(int id) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "특정 아이디어 불러오기",
+      url: "/trade/$id",
+      // token: InMatAuth.instance?.currentUser?.token,
+    );
+    return await inMatHttp.execute();
+  }
+
+  /// 이 밑으로는 추가 안함
+
   ///커뮤니티 조회 API
   Future<List<Map>> getPosts() async {
     InMatHttp inMatHttp = InMatHttp(

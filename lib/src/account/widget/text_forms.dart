@@ -42,7 +42,7 @@ class LoginInputs extends StatelessWidget {
           curve: Curves.easeOutQuart,
           child: const Text(
             "아이디 또는 비밀번호가 일치하지 않습니다.",
-            style: TextStylee(fontSize: 14, color: Color(0xffFF3122)),
+            style: LetterStyle(fontSize: 14, color: Color(0xffFF3122)),
           ),
         ),
       ],
@@ -120,7 +120,7 @@ class _LoginFieldState extends State<LoginField> {
             child: TextField(
               onChanged: widget.onChanged,
               controller: controller,
-              style: const TextStylee(
+              style: const LetterStyle(
                 fontSize: 14.0,
                 color: Colorss.text1,
               ),
@@ -132,7 +132,7 @@ class _LoginFieldState extends State<LoginField> {
                 contentPadding:
                     const EdgeInsets.only(top: 13, bottom: 14, left: 11, right: 8),
                 hintText: widget.hint,
-                hintStyle: const TextStylee(
+                hintStyle: const LetterStyle(
                   fontSize: 16,
                   color: Colorss.text2,
                 ),

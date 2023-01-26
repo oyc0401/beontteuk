@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../home/providers/home_view_model.dart';
+import '../message/massage_page.dart';
 import '../profile/screens/profile.dart';
+import '../write/screens/write_title.dart';
 
 
 
@@ -43,6 +45,8 @@ class _NavigatePageState extends State<NavigatePage> {
       unselectedItemColor: Colors.grey.withOpacity(.60),
       selectedFontSize: 14,
       unselectedFontSize: 12,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
 
       currentIndex: _selectedIndex,
       //현재 선택된 Index
@@ -58,23 +62,25 @@ class _NavigatePageState extends State<NavigatePage> {
       items: const [
         BottomNavigationBarItem(
           label: "홈",
-          icon: Icon(Icons.home),
+
+          icon: Icon(Icons.grid_view_outlined,size: 30),
         ),
-        // BottomNavigationBarItem(
-        //   label: "검색",
-        //   icon: Icon(Icons.search),
-        // ),
-        // BottomNavigationBarItem(
-        //   label: "랜덤",
-        //   icon: Icon(Icons.menu_book),
-        // ),
+        BottomNavigationBarItem(
+          label: "검색",
+          icon: Icon(Icons.drive_file_rename_outline,size: 32,),
+        ),
+        BottomNavigationBarItem(
+          label: "랜덤",
+          icon: Icon(Icons.mail_outline,size: 30),
+        ),
         // BottomNavigationBarItem(
         //   label: "커뮤니티",
         //   icon: Icon(Icons.question_answer),
         // ),
         BottomNavigationBarItem(
           label: "내 정보",
-          icon: Icon(Icons.account_circle),
+          // l
+          icon: Icon(Icons.account_circle_outlined,size: 34),
         ),
       ],
     );
@@ -83,6 +89,8 @@ class _NavigatePageState extends State<NavigatePage> {
   List _widgetOptions() {
     return [
       const HomePage(),
+      WriteTitle(),
+      MessagePage(),
       // const Search(),
       // const RandomFoodSelect(),
       // const Community(),

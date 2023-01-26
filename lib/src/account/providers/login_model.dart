@@ -57,8 +57,8 @@ class EmailSignInModel with ChangeNotifier {
 
   login(BuildContext context) async {
     ///TODO 테스트 계정
-    _password = 'qwe12345&&';
-    _username = 'test123@gmail.com';
+    _password = 'qwe123';
+    _username = 'test123';
 
     print('id      : $id');
     print('password: $password');

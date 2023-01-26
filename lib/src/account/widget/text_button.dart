@@ -26,7 +26,7 @@ class TextMiniButton extends StatelessWidget {
           child: Text(
             text,
             style: style ??
-                const TextStylee(
+                const LetterStyle(
                   fontSize: 14,
                   color: Colorss.text2,
                 ),

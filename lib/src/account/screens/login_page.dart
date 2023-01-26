@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(height: 41),
                   const Text(
                     "그대를 기다리고 있었네",
-                    style: TextStylee(
+                    style: LetterStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w700,
                       color: Colorss.text1,
@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   const Text(
                     "설빙 한딸기빙수",
-                    style: TextStylee(
+                    style: LetterStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w700,
                       color: Colorss.text1,
@@ -127,7 +127,7 @@ class LoginButton extends StatelessWidget {
         child: const Center(
           child: Text(
             "로그인",
-            style: TextStylee(
+            style: LetterStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.w700,
               color: Colors.white,
@@ -177,7 +177,7 @@ class CheckToggle extends StatelessWidget {
             const SizedBox(width: 9),
             Text(
               text,
-              style: const TextStylee(
+              style: const LetterStyle(
                 fontSize: 16.0,
                 color: Colorss.text1,
               ),
@@ -250,7 +250,7 @@ class ForgotBox extends StatelessWidget {
                 const SizedBox(height: 12),
                 const Text(
                   "잠깐! 비밀번호를 잊으셨나요?",
-                  style: TextStylee(
+                  style: LetterStyle(
                     fontSize: 16.0,
                     color: Colorss.text1,
                   ),
@@ -261,7 +261,7 @@ class ForgotBox extends StatelessWidget {
                   children: const [
                     Text(
                       "아이디찾기 ",
-                      style: TextStylee(
+                      style: LetterStyle(
                         fontSize: 14,
                         color: Color(0xff4992FF),
                       ),
@@ -269,11 +269,11 @@ class ForgotBox extends StatelessWidget {
                     Text(
                       "혹은",
                       style:
-                          TextStylee(fontSize: 14, color: Colorss.text2),
+                          LetterStyle(fontSize: 14, color: Colorss.text2),
                     ),
                     Text(
                       " 비밀번호 찾기",
-                      style: TextStylee(
+                      style: LetterStyle(
                         fontSize: 14,
                         color: Color(0xff4992FF),
                       ),
@@ -302,7 +302,7 @@ class RegisterButton extends StatelessWidget {
                 CupertinoPageRoute(builder: (context) => const SignUpPage()));
           },
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-          style: const TextStylee(
+          style: const LetterStyle(
             fontSize: 14,
             color: Colorss.text2,
           ),
@@ -316,7 +316,7 @@ class RegisterButton extends StatelessWidget {
           "아이디찾기",
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
           onclick: () {},
-          style: const TextStylee(
+          style: const LetterStyle(
             fontSize: 14,
             color: Colorss.text2,
           ),
@@ -330,7 +330,7 @@ class RegisterButton extends StatelessWidget {
           "비밀번호 찾기",
           onclick: () {},
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-          style: const TextStylee(
+          style: const LetterStyle(
             fontSize: 14,
             color: Colorss.text2,
           ),

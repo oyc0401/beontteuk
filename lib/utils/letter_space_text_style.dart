@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextStylee extends TextStyle {
-  const TextStylee({
+class LetterStyle extends TextStyle {
+  const LetterStyle({
     super.inherit = true,
     super.color,
     super.backgroundColor,

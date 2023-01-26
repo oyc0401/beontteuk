@@ -1,5 +1,6 @@
 import '../auth/inmat_auth.dart';
 
+import 'inmat_exception.dart';
 import 'inmat_http.dart';
 
 part 'api/account.dart';

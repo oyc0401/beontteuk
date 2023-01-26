@@ -9,10 +9,11 @@ part 'profile_model.freezed.dart';
 @freezed
 class ProfileModel with _$ProfileModel {
   factory ProfileModel({
-    required int age,
-    required String gender,
-    required String nickName,
-    required String? profileImgUrl,
+ required int index,
+    required  String email,
+    required  String nickname,
+    required String profile,
+    required String created,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>

@@ -20,10 +20,11 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProfileModel {
-  int get age => throw _privateConstructorUsedError;
-  String get gender => throw _privateConstructorUsedError;
-  String get nickName => throw _privateConstructorUsedError;
-  String? get profileImgUrl => throw _privateConstructorUsedError;
+  int get index => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String get nickname => throw _privateConstructorUsedError;
+  String get profile => throw _privateConstructorUsedError;
+  String get created => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $ProfileModelCopyWith<$Res> {
           ProfileModel value, $Res Function(ProfileModel) then) =
       _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
-  $Res call({int age, String gender, String nickName, String? profileImgUrl});
+  $Res call(
+      {int index,
+      String email,
+      String nickname,
+      String profile,
+      String created});
 }
 
 /// @nodoc
@@ -53,28 +59,33 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? age = null,
-    Object? gender = null,
-    Object? nickName = null,
-    Object? profileImgUrl = freezed,
+    Object? index = null,
+    Object? email = null,
+    Object? nickname = null,
+    Object? profile = null,
+    Object? created = null,
   }) {
     return _then(_value.copyWith(
-      age: null == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
               as int,
-      gender: null == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
-      nickName: null == nickName
-          ? _value.nickName
-          : nickName // ignore: cast_nullable_to_non_nullable
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      profileImgUrl: freezed == profileImgUrl
-          ? _value.profileImgUrl
-          : profileImgUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      profile: null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String,
+      created: null == created
+          ? _value.created
+          : created // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -87,7 +98,12 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       __$$_ProfileModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int age, String gender, String nickName, String? profileImgUrl});
+  $Res call(
+      {int index,
+      String email,
+      String nickname,
+      String profile,
+      String created});
 }
 
 /// @nodoc
@@ -101,28 +117,33 @@ class __$$_ProfileModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? age = null,
-    Object? gender = null,
-    Object? nickName = null,
-    Object? profileImgUrl = freezed,
+    Object? index = null,
+    Object? email = null,
+    Object? nickname = null,
+    Object? profile = null,
+    Object? created = null,
   }) {
     return _then(_$_ProfileModel(
-      age: null == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
               as int,
-      gender: null == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
-      nickName: null == nickName
-          ? _value.nickName
-          : nickName // ignore: cast_nullable_to_non_nullable
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      profileImgUrl: freezed == profileImgUrl
-          ? _value.profileImgUrl
-          : profileImgUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      profile: null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String,
+      created: null == created
+          ? _value.created
+          : created // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -131,26 +152,29 @@ class __$$_ProfileModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProfileModel implements _ProfileModel {
   _$_ProfileModel(
-      {required this.age,
-      required this.gender,
-      required this.nickName,
-      required this.profileImgUrl});
+      {required this.index,
+      required this.email,
+      required this.nickname,
+      required this.profile,
+      required this.created});
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileModelFromJson(json);
 
   @override
-  final int age;
+  final int index;
   @override
-  final String gender;
+  final String email;
   @override
-  final String nickName;
+  final String nickname;
   @override
-  final String? profileImgUrl;
+  final String profile;
+  @override
+  final String created;
 
   @override
   String toString() {
-    return 'ProfileModel(age: $age, gender: $gender, nickName: $nickName, profileImgUrl: $profileImgUrl)';
+    return 'ProfileModel(index: $index, email: $email, nickname: $nickname, profile: $profile, created: $created)';
   }
 
   @override
@@ -158,18 +182,18 @@ class _$_ProfileModel implements _ProfileModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProfileModel &&
-            (identical(other.age, age) || other.age == age) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
-            (identical(other.nickName, nickName) ||
-                other.nickName == nickName) &&
-            (identical(other.profileImgUrl, profileImgUrl) ||
-                other.profileImgUrl == profileImgUrl));
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.created, created) || other.created == created));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, age, gender, nickName, profileImgUrl);
+      Object.hash(runtimeType, index, email, nickname, profile, created);
 
   @JsonKey(ignore: true)
   @override
@@ -187,22 +211,25 @@ class _$_ProfileModel implements _ProfileModel {
 
 abstract class _ProfileModel implements ProfileModel {
   factory _ProfileModel(
-      {required final int age,
-      required final String gender,
-      required final String nickName,
-      required final String? profileImgUrl}) = _$_ProfileModel;
+      {required final int index,
+      required final String email,
+      required final String nickname,
+      required final String profile,
+      required final String created}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
 
   @override
-  int get age;
+  int get index;
   @override
-  String get gender;
+  String get email;
   @override
-  String get nickName;
+  String get nickname;
   @override
-  String? get profileImgUrl;
+  String get profile;
+  @override
+  String get created;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>
