@@ -3,6 +3,7 @@ import 'package:beontteuk/src/account/screens/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../ideas/screens/bought_idea.dart';
 import '../../navigation/navigation.dart';
 
 class Profile extends StatelessWidget {
@@ -38,16 +39,29 @@ class Profile extends StatelessWidget {
               ),
             ],
           ),
-
-
+          CupertinoButton(
+            color: Colors.yellow,
+            child: const Text("내가 산 아이디어 하나 보기"),
+            onPressed: () {
+              InMatAuth.instance.signOut();
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => IdeaWebView(
+                            index: 2,
+                          )));
+            },
+          ),
           CupertinoButton(
             color: Colors.redAccent,
             child: const Text("로그아웃"),
             onPressed: () {
               InMatAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(context,
-                  CupertinoPageRoute(builder: (context) => LoginPage()),(route) => false,);
-
+              Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => LoginPage()),
+                (route) => false,
+              );
             },
           ),
         ],

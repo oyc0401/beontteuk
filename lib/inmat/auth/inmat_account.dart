@@ -29,10 +29,9 @@ class InMatAccount {
     }
   }
 
-  static Future<bool> checkId({
-    required String id,
-  }) async {
-    String message = await InMatApi.account.checkId(id: id);
-    return message == "아이디 사용가능!";
-  }
+  // static Future<bool> checkEmail({
+  //   required String email,
+  // }) async {
+  //   return await InMatApi.account.checkEmail(email: email);;
+  // }
 }

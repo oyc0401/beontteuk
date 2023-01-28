@@ -31,12 +31,12 @@ class _AuthCheckState extends State<AuthCheck> {
           CupertinoButton(
             child: Text("메인 이동"),
             onPressed: () {
-              // Navigator.pushAndRemoveUntil(context,
-              //     CupertinoPageRoute(builder: (context) => NavigatePage()),(route) => false,);
+              Navigator.pushAndRemoveUntil(context,
+                  CupertinoPageRoute(builder: (context) => NavigatePage()),(route) => false,);
 
 
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => NavigatePage()));
+              // Navigator.push(context,
+              //     CupertinoPageRoute(builder: (context) => NavigatePage()));
             },
           ),
         ],

@@ -1,9 +1,13 @@
 import 'package:beontteuk/auth_check.dart';
 import 'package:beontteuk/inmat/auth/Inmat_token.dart';
 import 'package:beontteuk/inmat/auth/inmat_auth.dart';
+import 'package:beontteuk/src/ideas/screens/idea_view.dart';
+
 import 'package:flutter/material.dart';
 
+import '_sample/s3/s3.dart';
 import 'src/account/screens/login_page.dart';
+import 'src/ideas/screens/bought_idea.dart';
 import 'src/navigation/navigation.dart';
 import 'utils/colorss.dart';
 import 'utils/letter_space_text_style.dart';
@@ -39,8 +43,11 @@ class MyApp extends StatelessWidget {
         ),
         // backgroundColor: Colors.white,
       ),
-      // home: const AuthCheck(),
-      home:  productMode(),
+      home: const AuthCheck(),
+      // home:  productMode(),
+    // home: S3Example(),
+
+      // home:  IdeaWebView(index: 2,),
     );
   }
 

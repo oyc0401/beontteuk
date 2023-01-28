@@ -101,7 +101,7 @@ flutter:
     - assets/
     - assets/about_us.html
     - assets/icons/
-    - assets/home
+#    - assets/home
 
 
 

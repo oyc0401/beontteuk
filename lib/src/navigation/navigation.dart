@@ -1,13 +1,20 @@
 import 'package:beontteuk/src/home/screens/home.dart';
+import 'package:beontteuk/src/home/screens/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../home/providers/home_view_model.dart';
 import '../message/massage_page.dart';
 import '../profile/screens/profile.dart';
 import '../write/screens/write_title.dart';
 
+class NavigationModel with ChangeNotifier {
+  int selectedIndex = 0;
 
+  setIndex(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
+}
 
 class NavigatePage extends StatefulWidget {
   const NavigatePage({Key? key}) : super(key: key);
@@ -17,27 +24,29 @@ class NavigatePage extends StatefulWidget {
 }
 
 class _NavigatePageState extends State<NavigatePage> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => HomeViewModel()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => NavigationModel()),
 
         // ChangeNotifierProvider(
         //     create: (BuildContext context) => CommunityViewModel()),
       ],
-      child: Scaffold(
-        bottomNavigationBar: bottomNav(),
-        body: Center(
-          child: _widgetOptions().elementAt(_selectedIndex),
-        ),
-      ),
+      child: Consumer(builder: (context, ob, child) {
+        return Scaffold(
+          bottomNavigationBar: bottomNav(context),
+          body: Center(
+            child: _widgetOptions()
+                .elementAt(Provider.of<NavigationModel>(context).selectedIndex),
+          ),
+        );
+      }),
     );
   }
 
-  BottomNavigationBar bottomNav() {
+  BottomNavigationBar bottomNav(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
@@ -48,7 +57,7 @@ class _NavigatePageState extends State<NavigatePage> {
       showSelectedLabels: false,
       showUnselectedLabels: false,
 
-      currentIndex: _selectedIndex,
+      currentIndex: Provider.of<NavigationModel>(context).selectedIndex,
       //현재 선택된 Index
       onTap: (int index) {
         // switch(index){
@@ -56,22 +65,24 @@ class _NavigatePageState extends State<NavigatePage> {
         //     Provider.of<UnivSearchModel>(context,listen: false).InitUnivDatas();
         // }
         setState(() {
-          _selectedIndex = index;
+          Provider.of<NavigationModel>(context,listen: false).setIndex(index);
         });
       },
       items: const [
         BottomNavigationBarItem(
           label: "홈",
-
-          icon: Icon(Icons.grid_view_outlined,size: 30),
+          icon: Icon(Icons.grid_view_outlined, size: 30),
         ),
         BottomNavigationBarItem(
           label: "검색",
-          icon: Icon(Icons.drive_file_rename_outline,size: 32,),
+          icon: Icon(
+            Icons.search_outlined,
+            size: 32,
+          ),
         ),
         BottomNavigationBarItem(
           label: "랜덤",
-          icon: Icon(Icons.mail_outline,size: 30),
+          icon: Icon(Icons.mail_outline, size: 30),
         ),
         // BottomNavigationBarItem(
         //   label: "커뮤니티",
@@ -80,7 +91,7 @@ class _NavigatePageState extends State<NavigatePage> {
         BottomNavigationBarItem(
           label: "내 정보",
           // l
-          icon: Icon(Icons.account_circle_outlined,size: 34),
+          icon: Icon(Icons.account_circle_outlined, size: 34),
         ),
       ],
     );
@@ -89,7 +100,7 @@ class _NavigatePageState extends State<NavigatePage> {
   List _widgetOptions() {
     return [
       const HomePage(),
-      WriteTitle(),
+      SearchPage(),
       MessagePage(),
       // const Search(),
       // const RandomFoodSelect(),

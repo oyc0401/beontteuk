@@ -12,6 +12,8 @@ class CommunityApi {
   }
 
   Future<Map> getIdea(int id) async {
+
+    print("dsadas: $id");
     InMatHttp inMatHttp = InMatHttp(
       Http.get,
       message: "특정 아이디어 불러오기",
@@ -21,7 +23,21 @@ class CommunityApi {
     return await inMatHttp.execute();
   }
 
+  Future<Map> getReview(int id) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "특정 게시물에 적힌 리뷰 목록 불러오기",
+      url: "/review/get/$id",
+      // token: InMatAuth.instance?.currentUser?.token,
+    );
+    return await inMatHttp.execute();
+  }
+
   /// 이 밑으로는 추가 안함
+
+  // /review/get
+
+
 
   ///커뮤니티 조회 API
   Future<List<Map>> getPosts() async {

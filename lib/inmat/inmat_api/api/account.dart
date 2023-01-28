@@ -44,8 +44,19 @@ class AccountApi {
     InMatHttp inMatHttp = InMatHttp(
       Http.post,
       message: "닉네임 중복 체크",
-      url: "/account/check-duplication",
-      body: {'nickname': nickname,"ㅇㄴㅁㅇ":"ㅇㄴㅁ"},
+      url: "/account/check-duplication-nickname",
+      body: {'nickname': nickname},
+    );
+    return await inMatHttp.execute();
+  }
+
+  ///이메일 중복 체크 API
+  Future<bool> checkEmail(String email) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.post,
+      message: "이메일 중복 체크",
+      url: "/account/check-duplication-email",
+      body: {'email': email},
     );
     return await inMatHttp.execute();
   }
@@ -75,17 +86,8 @@ class AccountApi {
 
 
 
-  ///아이디 중복 체크 API
-  Future<String> checkId({required String id}) async {
-    InMatHttp inMatHttp = InMatHttp(
-      Http.post,
-      message: "아이디 중복 체크",
-      url: "/users/username",
-      body: {'username': id},
-      token: InMatAuth.instance?.currentUser?.token,
-    );
-    return await inMatHttp.execute();
-  }
+
+
 
 
 }

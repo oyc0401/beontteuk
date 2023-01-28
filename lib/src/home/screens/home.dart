@@ -1,11 +1,14 @@
 import 'package:beontteuk/inmat/inmat_api/inmat_api.dart';
+import 'package:beontteuk/src/navigation/navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/colorss.dart';
 import '../../../utils/date_parse.dart';
 import '../../ideas/screens/idea_view.dart';
+import '../../write/screens/write_title.dart';
 import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -96,8 +99,9 @@ class _HomePageState extends State<HomePage> {
           SliverToBoxAdapter(
             child: InkWell(
               onTap: () {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => SearchPage()));
+                Provider.of<NavigationModel>(context,listen: false).setIndex(1);
+                // Navigator.push(context,
+                //     CupertinoPageRoute(builder: (context) => SearchPage()));
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -281,6 +285,12 @@ class _HomePageState extends State<HomePage> {
           // ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+
+        Navigator.push(context,
+            CupertinoPageRoute(builder: (context) => WriteTitle()));
+
+      }),
     );
   }
 }
@@ -310,7 +320,7 @@ class HomeCard extends StatelessWidget {
         Navigator.push(
             context,
             CupertinoPageRoute(
-                builder: (context) => IdeaWebView(
+                builder: (context) => IdeaView(
                       index: index,
                     )));
       },

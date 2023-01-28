@@ -1,21 +1,20 @@
 import 'dart:convert';
 import 'package:beontteuk/src/ideas/screens/buy_page.dart';
-import 'package:beontteuk/src/ideas/screens/write_review_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class IdeaWebView extends StatefulWidget {
-  IdeaWebView({Key? key, required this.index}) : super(key: key);
+class WriteReviewPage extends StatefulWidget {
+  WriteReviewPage({Key? key, required this.index}) : super(key: key);
 
   final int index;
 
   @override
-  _IdeaWebViewState createState() => _IdeaWebViewState();
+  _WriteReviewPageState createState() => _WriteReviewPageState();
 }
 
-class _IdeaWebViewState extends State<IdeaWebView> {
+class _WriteReviewPageState extends State<WriteReviewPage> {
   late WebViewController _controller;
 
   @override
@@ -39,7 +38,27 @@ class _IdeaWebViewState extends State<IdeaWebView> {
         if(s.message=='push reviewPage'){
           Navigator.push(
               context, CupertinoPageRoute(builder: (context) => WriteReviewPage(index: 1,)));
+        }else if(s.message== 'pop'){
+          Navigator.pop(context);
         }
+
+        // String massage = ""
+
+        // Map example={
+        //   'route': "pop",
+        //   "id": 3,
+        // };
+        // try{
+        //   Map map=json.decode(s.message);
+        //
+        //   print(map);
+        //   print(map['route']);
+        //   print(map['id']);
+        //
+        // }
+        // catch(e){
+        //   print("웹뷰 명영어가 Map 형식이 아님!");
+        // }
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(s.message),
@@ -67,7 +86,9 @@ class _IdeaWebViewState extends State<IdeaWebView> {
     List<int> list = json.encode(body).codeUnits;
 
     _controller.loadRequest(
-      Uri.parse('http://54.83.101.17:8080/'),
+        Uri.parse('https://beontteuk.github.io/review_test_repo/'),
+
+      // Uri.parse('http://54.83.101.17:8080/'),
       // method: LoadRequestMethod.get,
       // body: Uint8List.fromList(list),
     );
@@ -89,6 +110,7 @@ class _IdeaWebViewState extends State<IdeaWebView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset : false,
       appBar: AppBar(

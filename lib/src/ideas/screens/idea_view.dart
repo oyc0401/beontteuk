@@ -12,16 +12,16 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../../utils/colorss.dart';
 import '../../../utils/letter_space_text_style.dart';
 
-class IdeaWebView extends StatefulWidget {
-  IdeaWebView({Key? key, required this.index}) : super(key: key);
+class IdeaView extends StatefulWidget {
+  IdeaView({Key? key, required this.index}) : super(key: key);
 
   final int index;
 
   @override
-  _IdeaWebViewState createState() => _IdeaWebViewState();
+  _IdeaViewState createState() => _IdeaViewState();
 }
 
-class _IdeaWebViewState extends State<IdeaWebView> {
+class _IdeaViewState extends State<IdeaView> {
   @override
   initState() {
     super.initState();
