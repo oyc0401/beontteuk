@@ -20,6 +20,7 @@ class WriteTitle extends StatelessWidget {
       create: (BuildContext context) => writeModel,
       child: Consumer(builder: (context, a, s) {
         return Scaffold(
+          resizeToAvoidBottomInset : false,
           appBar: AppBar(title: const Text('글 작성')),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

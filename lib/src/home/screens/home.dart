@@ -99,7 +99,8 @@ class _HomePageState extends State<HomePage> {
           SliverToBoxAdapter(
             child: InkWell(
               onTap: () {
-                Provider.of<NavigationModel>(context,listen: false).setIndex(1);
+                Provider.of<NavigationModel>(context, listen: false)
+                    .setIndex(1);
                 // Navigator.push(context,
                 //     CupertinoPageRoute(builder: (context) => SearchPage()));
               },
@@ -285,11 +286,9 @@ class _HomePageState extends State<HomePage> {
           // ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-
-        Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => WriteTitle()));
-
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.push(
+            context, CupertinoPageRoute(builder: (context) => WriteTitle()));
       }),
     );
   }
@@ -335,7 +334,7 @@ class HomeCard extends StatelessWidget {
                   width: 84,
                   height: 84,
                   color: Colors.grey,
-                  child: Text(thumbnaill),
+                  child: Image.network(thumbnaill),
                 ),
                 // Positioned(
                 //   bottom: 8,

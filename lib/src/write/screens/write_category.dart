@@ -1,5 +1,7 @@
+import 'package:beontteuk/src/write/image_to_url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/colorss.dart';
@@ -82,7 +84,9 @@ class WriteCategory extends StatelessWidget {
                                   width: 118,
                                   height: 52,
                                   decoration: BoxDecoration(
-                                    color: Provider.of<WriteModel>(context).category == i
+                                    color: Provider.of<WriteModel>(context)
+                                                .category ==
+                                            i
                                         ? const Color(0xE85835E2)
                                         : const Color(0x80000000),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -97,7 +101,8 @@ class WriteCategory extends StatelessWidget {
                                         color: Colors.white,
                                         fontSize: 16,
                                         fontWeight:
-                                            Provider.of<WriteModel>(context).category ==
+                                            Provider.of<WriteModel>(context)
+                                                        .category ==
                                                     i
                                                 ? FontWeight.bold
                                                 : FontWeight.normal,
@@ -127,7 +132,37 @@ class WriteCategory extends StatelessWidget {
                             color: Colorss.text1,
                           ),
                         ),
-                        Container(height: 30, child: TextField()),
+                        Container(
+                            height: 30,
+                            child: TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^[0-9]*$')),
+                              ],
+                              onChanged: (text) {
+                                if (text != '') {
+                                  Provider.of<WriteModel>(context,
+                                          listen: false)
+                                      .price = int.parse(text);
+                                }
+                              },
+                              keyboardType: TextInputType.number,
+                              cursorColor: Colorss.brand,
+                              decoration: InputDecoration(
+                                // hintText: "가격을 입력하세요.",
+                                // hintStyle: TextStyle(
+                                //   fontSize: 16,
+                                //   // fontWeight: FontWeight.bold,
+                                //   color: Colorss.text2,
+                                // ),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff262626))),
+                                border: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff262626))),
+                              ),
+                            )),
                         SizedBox(
                           height: 31,
                         ),
@@ -143,14 +178,27 @@ class WriteCategory extends StatelessWidget {
                           height: 8,
                         ),
                         InkWell(
+                          onTap: () async {
+                            try {
+                              ImageToUrl image = ImageToUrl();
+
+                              String url = await image.getUrl();
+
+                              Provider.of<WriteModel>(context, listen: false)
+                                  .thumbnail = url;
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
                           child: Stack(
                             children: [
-                              Ink(
-                                height: 188,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
+                              Container(
+                                width:10000,
+
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(3),
+                                  child: Image.network(
+                                      Provider.of<WriteModel>(context).thumbnail),
                                 ),
                               ),
                               Positioned.fill(
@@ -203,6 +251,15 @@ class WriteCategory extends StatelessWidget {
                                 color: Colorss.text1,
                               ),
                             ),
+                            Spacer(),
+                            Text(
+                              "불가능",
+                              style: TextStyle(
+                                fontSize: 16,
+                                // fontWeight: FontWeight.bold,
+                                color: Colorss.text1,
+                              ),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -212,6 +269,15 @@ class WriteCategory extends StatelessWidget {
                           children: [
                             Text(
                               "특허 출원",
+                              style: TextStyle(
+                                fontSize: 16,
+                                // fontWeight: FontWeight.bold,
+                                color: Colorss.text1,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "불가능",
                               style: TextStyle(
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
@@ -235,8 +301,53 @@ class WriteCategory extends StatelessWidget {
                           height: 10,
                         ),
                         Container(
+                          height: 37,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              for (String tag
+                                  in Provider.of<WriteModel>(context).hashTags)
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Provider.of<WriteModel>(context,
+                                              listen: false)
+                                          .hashTags
+                                          .remove(tag);
+                                      Provider.of<WriteModel>(context,
+                                              listen: false)
+                                          .setState();
+                                    },
+                                    child: Ink(
+                                      height: 37,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffECECEC),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "#$tag",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colorss.text1),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
                           height: 46,
-                          child: TextField(),
+                          child: NewWidget(),
                         ),
                         SizedBox(
                           height: 33,
@@ -245,9 +356,7 @@ class WriteCategory extends StatelessWidget {
                           padding:
                               EdgeInsets.only(left: 16, right: 16, bottom: 23),
                           child: InkWell(
-                            onTap: () async{
-
-
+                            onTap: () async {
                               // if(Provider.of<WriteModel>(context,listen: false).description.length==0){
                               //   Message.showMessage("아이디어 설명을 입력하세요");
                               //   return;
@@ -262,8 +371,11 @@ class WriteCategory extends StatelessWidget {
                               //   ),
                               // );
 
+                              await Provider.of<WriteModel>(context,
+                                      listen: false)
+                                  .upload();
 
-                             await Provider.of<WriteModel>(context,listen: false).upload();
+                              Navigator.pop(context);
                             },
                             borderRadius: BorderRadius.circular(4),
                             child: Ink(
@@ -295,6 +407,25 @@ class WriteCategory extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  NewWidget({
+    super.key,
+  });
+
+  TextEditingController controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      onSubmitted: (text) {
+        Provider.of<WriteModel>(context, listen: false).addHashTag(text);
+        controller.text = '';
+      },
     );
   }
 }

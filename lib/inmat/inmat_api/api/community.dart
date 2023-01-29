@@ -12,7 +12,6 @@ class CommunityApi {
   }
 
   Future<Map> getIdea(int id) async {
-
     print("dsadas: $id");
     InMatHttp inMatHttp = InMatHttp(
       Http.get,
@@ -33,11 +32,63 @@ class CommunityApi {
     return await inMatHttp.execute();
   }
 
+  Future<void> writePost({
+    required int user_id,
+    required String title,
+    required String overview,
+    required String description,
+    required int price,
+    required int category,
+    required String thumbnail,
+    required bool is_commercial_available,
+    required bool is_patent_available,
+  }) async {
+
+    print({
+      "user_id": user_id,
+      "title": title,
+      "overview": overview,
+      "description": description,
+      "price": price,
+      "category": category,
+      "thumbnail": thumbnail,
+      "is_commercial_available": is_commercial_available,
+      "is_patent_available": is_patent_available
+    });
+    InMatHttp inMatHttp = InMatHttp(
+      Http.post,
+      message: "게시글 작성",
+      url: "/idea/create",
+      body: {
+        "title": title,
+        "overview": overview,
+        "description": description,
+        "price": price,
+        "category": category,
+        "thumbnail": thumbnail,
+        "is_commercial_available": is_commercial_available,
+        "is_patent_available": is_patent_available
+      },
+      token: user_id.toString(),
+    );
+    return await inMatHttp.execute();
+  }
+
+
+  Future<String> getImageUrl(String name) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "이미지 url 불러오기",
+      url: "/upload/$name",
+      token: InMatAuth.instance?.currentUser?.token,
+    );
+    return await inMatHttp.execute();
+  }
+
+
   /// 이 밑으로는 추가 안함
 
   // /review/get
-
-
 
   ///커뮤니티 조회 API
   Future<List<Map>> getPosts() async {
@@ -61,21 +112,6 @@ class CommunityApi {
     return await inMatHttp.execute();
   }
 
-  ///게시글 작성 API
-  Future<void> writePost(
-      {required String title, required String content}) async {
-    InMatHttp inMatHttp = InMatHttp(
-      Http.post,
-      message: "게시글 작성",
-      url: "/communities",
-      body: {
-        "contents": content,
-        "topic": title,
-      },
-      token: InMatAuth.instance?.currentUser?.token,
-    );
-    return await inMatHttp.execute();
-  }
 
   ///게시글 삭제 API
   Future<void> deletePost(int postId) async {
