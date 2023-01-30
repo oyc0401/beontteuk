@@ -43,7 +43,6 @@ class CommunityApi {
     required bool is_commercial_available,
     required bool is_patent_available,
   }) async {
-
     print({
       "user_id": user_id,
       "title": title,
@@ -74,7 +73,6 @@ class CommunityApi {
     return await inMatHttp.execute();
   }
 
-
   Future<String> getImageUrl(String name) async {
     InMatHttp inMatHttp = InMatHttp(
       Http.get,
@@ -85,29 +83,34 @@ class CommunityApi {
     return await inMatHttp.execute();
   }
 
-
-  Future<void> setBookMark( int index) async {
+  Future<void> setBookMark(int index) async {
     InMatHttp inMatHttp = InMatHttp(
       Http.post,
       message: "북마크 설정",
       url: "/collection/add",
-      body:{
-        "idea_id":index
-      },
+      body: {"idea_id": index},
       token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();
   }
 
-  Future<void> deleteBookMark( int index) async {
+  Future<void> deleteBookMark(int index) async {
     InMatHttp inMatHttp = InMatHttp(
       Http.post,
       message: "북마크 취소",
       url: "/collection/delete",
-      body:{
-        "idea_id":index
-      },
+      body: {"idea_id": index},
       token: InMatAuth.instance?.currentUser?.token,
+    );
+    return await inMatHttp.execute();
+  }
+
+  Future<List> getMail(int user_id) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "쪽지 가져오기",
+      url: "/mail/get/$user_id",
+      token: user_id.toString(),
     );
     return await inMatHttp.execute();
   }
@@ -140,7 +143,6 @@ class CommunityApi {
     );
     return await inMatHttp.execute();
   }
-
 
   ///게시글 삭제 API
   Future<void> deletePost(int postId) async {

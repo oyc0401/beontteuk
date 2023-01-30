@@ -76,6 +76,17 @@ class AccountApi {
     return list[0];
   }
 
+
+
+  Future<List> getOtherProfile(int user_id) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "다른사람 프로필 가져오기",
+      url: "/userinfo/profile/$user_id",
+      token: user_id.toString(),
+    );
+    return await inMatHttp.execute();
+  }
   /// 이 밑으로는 추가 안함 ///
 
 

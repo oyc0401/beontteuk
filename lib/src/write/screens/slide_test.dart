@@ -25,7 +25,6 @@ class ReorderableExample extends StatefulWidget {
 }
 
 class _ReorderableExampleState extends State<ReorderableExample> {
-  final List<int> _items = List<int>.generate(50, (int index) => index);
 
   @override
   Widget build(BuildContext context) {
@@ -87,5 +86,4 @@ class _ReorderableExampleState extends State<ReorderableExample> {
       key: Key("4"),
     ),
   ];
-  FocusNode _focus = FocusNode();
 }
