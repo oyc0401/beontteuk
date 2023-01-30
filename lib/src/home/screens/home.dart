@@ -253,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                   index: ideas[index]['index'],
                   price: ideas[index]['price'],
                   thumbnaill: ideas[index]['thumbnail'],
-                  bookmarkCount: ideas[index]['rating_cnt'],
+                  bookmarkCount: ideas[index]['collection_cnt'],
                 );
               },
               childCount: ideas.length,
@@ -334,7 +334,7 @@ class HomeCard extends StatelessWidget {
                   width: 84,
                   height: 84,
                   color: Colors.grey,
-                  child: Image.network(thumbnaill),
+                  child: Image.network(thumbnaill,fit: BoxFit.cover),
                 ),
                 // Positioned(
                 //   bottom: 8,

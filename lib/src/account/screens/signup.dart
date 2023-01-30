@@ -38,12 +38,16 @@ class _SignUpPageState extends State<SignUpPage> {
       Message.showMessage("이메일을 입력해주세요.");
       return;
     }
+    if (!checkEmail) {
+      print('이메일 중복확인을 해주세요');
+      Message.showMessage("이메일 중복확인을 해주세요");
+      return;
+    }
 
     if (password == '') {
       Message.showMessage("비밀번호를 입력해주세요.");
       return;
     }
-
 
     if (password != rePassword) {
       print('비밀번호가 일치하지 않습니다.');
@@ -56,11 +60,19 @@ class _SignUpPageState extends State<SignUpPage> {
       Digest digest = sha1.convert(bytes);
       print(digest.toString());
 
-      print('회원가입: name: 홍길동, password: ${digest.toString()}, email: $email, nickname: $nickname');
+      print(
+          '회원가입: name: 홍길동, password: ${digest.toString()}, email: $email, nickname: $nickname');
       await InMatAccount.registerEmail(
-          name: '홍길동', password: digest.toString(), email: email, nickname: nickname);
+          name: '홍길동',
+          password: digest.toString(),
+          email: email,
+          nickname: nickname);
 
       Navigator.pop(context);
+      // Navigator.pushAndRemoveUntil(
+      //     context,
+      //     CupertinoPageRoute(builder: (context) => NavigatePage()),
+      //     (route) => false);
     } catch (e) {
       print("회원가입 오류: $e");
     }
@@ -77,6 +89,20 @@ class _SignUpPageState extends State<SignUpPage> {
       Message.showMessage("닉네임을 사용할 수 없습니다.");
     } else {
       Message.showMessage("사용 가능한 닉네임 입니다.");
+    }
+  }
+
+  void clickEmailCheck() async {
+    if (email == '') {
+      Message.showMessage("이메일을 입력해주세요.");
+      return;
+    }
+    checkEmail = await InMatAccount.checkEmail(email: email);
+    print(checkEmail);
+    if (!checkEmail) {
+      Message.showMessage("이메일을 사용할 수 없습니다.");
+    } else {
+      Message.showMessage("사용 가능한 이메일 입니다.");
     }
   }
 
@@ -223,21 +249,27 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: 109,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff5735e2)),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              '중복확인',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: -0.32,
-                                color: Color(0xff5735e2),
+                        InkWell(
+                          onTap: () {
+                            clickEmailCheck();
+                          },
+                          child: Ink(
+                            width: 109,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color(0xff5735e2)),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                '중복확인',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.32,
+                                  color: Color(0xff5735e2),
+                                ),
                               ),
                             ),
                           ),

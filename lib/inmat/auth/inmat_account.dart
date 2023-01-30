@@ -29,9 +29,19 @@ class InMatAccount {
     }
   }
 
-  // static Future<bool> checkEmail({
-  //   required String email,
-  // }) async {
-  //   return await InMatApi.account.checkEmail(email: email);;
-  // }
+  static Future<bool> checkEmail({
+    required String email,
+  }) async {
+    try {
+      Map map =  await InMatApi.account.checkEmail(email);
+      return map['success'] ?? false;
+    } on SignInFailed {
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+
+
+  }
 }

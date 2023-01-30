@@ -69,7 +69,7 @@ class EmailSignInModel with ChangeNotifier {
       print(digest.toString());
 
       await InMatAuth.instance.signInEmail(id, digest.toString());
-      showMessage('로그인 성공: $id, ${digest.toString()}');
+      // showMessage('로그인 성공: $id, ${digest.toString()}');
 
       Navigator.pushAndRemoveUntil(
         context,

@@ -12,7 +12,11 @@ class InMatHttp {
     this.token,
   }) : _message = message ?? "이름없는 http 통신" {
     // 나중에 토큰방식으로 바꾸면 이 코드 삭제 해야함
-    body?.addAll({'user_id': token});
+
+    if(token!=null){
+      body?.addAll({'user_id': int.parse(token!)});
+    }
+
   }
 
   Http how;

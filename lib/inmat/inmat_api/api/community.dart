@@ -86,6 +86,35 @@ class CommunityApi {
   }
 
 
+  Future<void> setBookMark( int index) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.post,
+      message: "북마크 설정",
+      url: "/collection/add",
+      body:{
+        "idea_id":index
+      },
+      token: InMatAuth.instance?.currentUser?.token,
+    );
+    return await inMatHttp.execute();
+  }
+
+  Future<void> deleteBookMark( int index) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.post,
+      message: "북마크 취소",
+      url: "/collection/delete",
+      body:{
+        "idea_id":index
+      },
+      token: InMatAuth.instance?.currentUser?.token,
+    );
+    return await inMatHttp.execute();
+  }
+
+
+
+
   /// 이 밑으로는 추가 안함
 
   // /review/get

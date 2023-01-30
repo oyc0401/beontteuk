@@ -1,3 +1,4 @@
+import 'package:beontteuk/src/navigation/navigation.dart';
 import 'package:beontteuk/src/write/image_to_url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -375,7 +376,11 @@ class WriteCategory extends StatelessWidget {
                                       listen: false)
                                   .upload();
 
-                              Navigator.pop(context);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  CupertinoPageRoute(builder: (context) => NavigatePage()),
+                                  (route) => false);
+                              // Navigator.pop(context);
                             },
                             borderRadius: BorderRadius.circular(4),
                             child: Ink(

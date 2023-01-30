@@ -51,7 +51,7 @@ class AccountApi {
   }
 
   ///이메일 중복 체크 API
-  Future<bool> checkEmail(String email) async {
+  Future<Map> checkEmail(String email) async {
     InMatHttp inMatHttp = InMatHttp(
       Http.post,
       message: "이메일 중복 체크",
