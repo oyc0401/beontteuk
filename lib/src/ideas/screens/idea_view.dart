@@ -16,6 +16,8 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../utils/price_comma.dart';
+
 class IdeaView extends StatefulWidget {
   IdeaView({Key? key, required this.index}) : super(key: key);
 
@@ -30,6 +32,8 @@ class _IdeaViewState extends State<IdeaView> {
   initState() {
     super.initState();
     // _controller
+
+    // print(widget.index);
 
     init();
   }
@@ -484,7 +488,7 @@ Widget build(BuildContext context) {
                 width: 18,
               ),
               Text(
-                "${price}P",
+                "${PriceComma.getComma(price)}P",
                 style: const LetterStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

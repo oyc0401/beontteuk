@@ -1,4 +1,15 @@
 import 'package:beontteuk/utils/colorss.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
 import 'package:beontteuk/utils/toast.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +51,7 @@ class WriteContext extends StatelessWidget {
                     ),
                     Text(
                       "아이디어 상세설명",
-                      style: TextStyle(
+                      style: LetterStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colorss.text1,
@@ -109,7 +120,7 @@ class WriteContext extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "다음",
-                        style: TextStyle(
+                        style: LetterStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -194,7 +205,7 @@ class WriteContext extends StatelessWidget {
                             children: [
                               Text(
                                 "카메라",
-                                style: TextStyle(
+                                style: LetterStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colorss.text1,
@@ -204,7 +215,7 @@ class WriteContext extends StatelessWidget {
                                 height: 1,
                               ),
                               Text("직접 찍은 사진 업로드",
-                                  style: TextStyle(
+                                  style: LetterStyle(
                                     fontSize: 16,
                                     color: Colorss.text1,
                                   )),
@@ -256,7 +267,7 @@ class WriteContext extends StatelessWidget {
                             children: [
                               Text(
                                 "갤러리",
-                                style: TextStyle(
+                                style: LetterStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colorss.text1,
@@ -266,7 +277,7 @@ class WriteContext extends StatelessWidget {
                                 height: 1,
                               ),
                               Text("내 파일에서 업로드",
-                                  style: TextStyle(
+                                  style: LetterStyle(
                                     fontSize: 16,
                                     color: Colorss.text1,
                                   )),
@@ -311,7 +322,7 @@ class WriteContext extends StatelessWidget {
                             children: [
                               Text(
                                 "글 추가",
-                                style: TextStyle(
+                                style: LetterStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colorss.text1,
@@ -321,7 +332,7 @@ class WriteContext extends StatelessWidget {
                                 height: 1,
                               ),
                               Text("텍스트 입력",
-                                  style: TextStyle(
+                                  style: LetterStyle(
                                     fontSize: 16,
                                     color: Colorss.text1,
                                   )),
@@ -387,6 +398,7 @@ class PostField extends StatelessWidget {
                 .contents[index]
                 .text = text;
           },
+          autofocus: false,
           cursorColor: Colorss.brand,
           keyboardType: TextInputType.multiline,
           maxLines: null,
@@ -398,7 +410,7 @@ class PostField extends StatelessWidget {
             filled: true,
             fillColor: Color(0xffF3F3F3),
             hintText: "아이디어의 상세 설명을 적어주세요.",
-            hintStyle: TextStyle(
+            hintStyle: LetterStyle(
               fontSize: 16,
               // fontWeight: FontWeight.bold,
               color: Colorss.text2,
@@ -425,7 +437,7 @@ class PostField extends StatelessWidget {
                   child: Text(
                     "삭제하기",
                     textAlign: TextAlign.end,
-                    style: TextStyle(
+                    style: LetterStyle(
                       color: Color(0xff838383),
                       fontSize: 14,
                     ),
@@ -466,7 +478,7 @@ class ImageView extends StatelessWidget {
             },
             child: Text(
               "삭제하기",
-              style: TextStyle(
+              style: LetterStyle(
                 color: Color(0xff838383),
                 fontSize: 14,
               ),

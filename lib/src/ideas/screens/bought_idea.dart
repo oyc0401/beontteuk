@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class IdeaWebView extends StatefulWidget {
-  IdeaWebView({Key? key, required this.index}) : super(key: key);
+class BoughtIdea extends StatefulWidget {
+  BoughtIdea({Key? key, required this.index}) : super(key: key);
 
   final int index;
 
   @override
-  _IdeaWebViewState createState() => _IdeaWebViewState();
+  _BoughtIdeaState createState() => _BoughtIdeaState();
 }
 
-class _IdeaWebViewState extends State<IdeaWebView> {
+class _BoughtIdeaState extends State<BoughtIdea> {
   late WebViewController _controller;
 
   @override
@@ -67,7 +67,7 @@ class _IdeaWebViewState extends State<IdeaWebView> {
     List<int> list = json.encode(body).codeUnits;
 
     _controller.loadRequest(
-      Uri.parse('http://54.83.101.17:8080/'),
+      Uri.parse('http://54.83.101.17:8080/yeojun'),
       // method: LoadRequestMethod.get,
       // body: Uint8List.fromList(list),
     );
@@ -83,9 +83,9 @@ class _IdeaWebViewState extends State<IdeaWebView> {
         .toString());
   }
 
-  Future<String> loadLocal() async {
-    return await rootBundle.loadString('assets/about_us.html');
-  }
+  // Future<String> loadLocal() async {
+  //   return await rootBundle.loadString('assets/about_us.html');
+  // }
 
   @override
   Widget build(BuildContext context) {

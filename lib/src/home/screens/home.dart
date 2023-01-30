@@ -1,12 +1,15 @@
 import 'package:beontteuk/inmat/inmat_api/inmat_api.dart';
 import 'package:beontteuk/src/navigation/navigation.dart';
+import 'package:beontteuk/utils/price_comma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/colorss.dart';
 import '../../../utils/date_parse.dart';
+import '../../../utils/letter_space_text_style.dart';
 import '../../ideas/screens/idea_view.dart';
 import '../../write/screens/write_title.dart';
 import 'search_page.dart';
@@ -36,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   List ideas = [];
 
-  int clickIndex = -1;
+  int clickIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           SliverAppBar(
             backgroundColor: Colors.white,
             pinned: true,
-            expandedHeight: 160.0,
+            expandedHeight: 180.0,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
                 padding: const EdgeInsets.all(16),
@@ -68,19 +71,20 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Text(
                           '번뜩',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
+                          style: LetterStyle(
+                              color: Colorss.text1,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     const SizedBox(
                       width: double.infinity,
                       child: Text(
-                        '반짝반짝 빛나네\n번뜩이는 아이디어',
-                        style: TextStyle(
-                            color: Colors.black,
+                        '아이디어가\n반짝이는 순간',
+                        style: LetterStyle(
+                            color: Colorss.text1,
+                            height: 1.34,
                             fontSize: 32,
                             fontWeight: FontWeight.bold),
                       ),
@@ -91,11 +95,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // SliverToBoxAdapter(
-          //   child: Container(
-          //     height: 24,
-          //   ),
-          // ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 8,
+            ),
+          ),
           SliverToBoxAdapter(
             child: InkWell(
               onTap: () {
@@ -106,7 +110,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
-                height: 36,
+                height: 44,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -122,7 +126,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Text(
                       '검색어를 입력하세요.',
-                      style: TextStyle(fontSize: 16, color: Color(0xff838383)),
+                      style:
+                          LetterStyle(fontSize: 16, color: Color(0xff838383)),
                     ),
                     Spacer(),
                     Icon(
@@ -147,7 +152,10 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 '카테고리',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: LetterStyle(
+                    color: Colorss.text1,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -159,69 +167,79 @@ class _HomePageState extends State<HomePage> {
           SliverToBoxAdapter(
             child: SizedBox(
               height: 52,
-              child: ListView(scrollDirection: Axis.horizontal, children: [
-                const SizedBox(
-                  width: 10,
-                ),
-                for (int i = 0; i <= 10; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6),
-                    child: InkWell(
-                      onTap: () {
-                        if (clickIndex == i) {
-                          clickIndex = -1;
-                        } else {
-                          clickIndex = i;
-                        }
-
-                        setState(() {});
-                      },
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: 118,
-                            height: 52,
-                            color: Colors.white,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: const Image(
-                                image: AssetImage(
-                                    'assets/home/strawberries-1396330_1920.jpg'),
-                                fit: BoxFit.cover,
-                                colorBlendMode: BlendMode.darken,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 118,
-                            height: 52,
-                            decoration: BoxDecoration(
-                              color: clickIndex == i
-                                  ? const Color(0xE85835E2)
-                                  : const Color(0x80000000),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          Positioned.fill(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '요리/식품',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: clickIndex == i
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  SizedBox(
+                    width: 10,
                   ),
-              ]),
+                  // for (int i = 0; i <= 10; i++)
+                  Category(
+                    onclick: () {
+                      clickIndex = 0;
+                      setState(() {});
+                    },
+                    text: "요리/식품",
+                    url: "assets/home/strawberries-1396330_1920.jpg",
+                    active: clickIndex == 0,
+                  ),
+                  Category(
+                    onclick: () {
+                      clickIndex = 1;
+                      setState(() {});
+                    },
+                    text: "취미",
+                    url: "assets/home/knitting-1268932_1920.jpg",
+                    active: clickIndex == 1,
+                  ),
+                  Category(
+                    onclick: () {
+                      clickIndex = 2;
+                      setState(() {});
+                    },
+                    text: "친환경",
+                    url: "assets/home/leaf-1453071_1920.jpg",
+                    active: clickIndex == 2,
+                  ),
+                  Category(
+                    onclick: () {
+                      clickIndex = 3;
+                      setState(() {});
+                    },
+                    text: "사무",
+                    url: "assets/home/laptop-3196481_1920.jpg",
+                    active: clickIndex == 3,
+                  ),
+
+                  Category(
+                    onclick: () {
+                      clickIndex = 4;
+                      setState(() {});
+                    },
+                    text: "IT",
+                    url: "assets/home/laptop-2620118_1920.jpg",
+                    active: clickIndex == 4,
+                  ),
+                  Category(
+                    onclick: () {
+                      clickIndex = 5;
+                      setState(() {});
+                    },
+                    text: "패션/의류",
+                    url: "assets/home/closet-912694_1920.jpg",
+                    active: clickIndex == 5,
+                  ),
+                  Category(
+                    onclick: () {
+                      clickIndex = 6;
+                      setState(() {});
+                    },
+                    text: "인테리어",
+                    url: "assets/home/living-room-2732939_1920.jpg",
+                    active: clickIndex == 6,
+                  ),
+                ],
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -234,7 +252,10 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 '최신 아이디어',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: LetterStyle(
+                    color: Colorss.text1,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -248,6 +269,16 @@ class _HomePageState extends State<HomePage> {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 return HomeCard(
+                  onclick: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => IdeaView(
+                          index: ideas[index]['index'],
+                        ),
+                      ),
+                    );
+                  },
                   title: ideas[index]['title'],
                   created: DateParse.toKorean(ideas[index]['created']),
                   index: ideas[index]['index'],
@@ -286,10 +317,25 @@ class _HomePageState extends State<HomePage> {
           // ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.push(
-            context, CupertinoPageRoute(builder: (context) => WriteTitle()));
-      }),
+      floatingActionButton: Container(
+        width: 62,
+        height: 62,
+        child: FloatingActionButton(
+          elevation: 2,
+
+          backgroundColor: Colorss.brand,
+          shape: CircleBorder(side: BorderSide.none),
+          child: SvgPicture.asset(
+            'assets/icons/pencil.svg',
+            width: 40,
+            height: 40,
+          ),
+          onPressed: () {
+            Navigator.push(context,
+                CupertinoPageRoute(builder: (context) => WriteTitle()));
+          },
+        ),
+      ),
     );
   }
 }
@@ -302,7 +348,8 @@ class HomeCard extends StatelessWidget {
       required this.title,
       required this.created,
       required this.price,
-      required this.index})
+      required this.index,
+      required this.onclick})
       : super(key: key);
 
   final int index;
@@ -311,18 +358,12 @@ class HomeCard extends StatelessWidget {
   final String created;
   final int price;
   final int bookmarkCount;
+  final VoidCallback onclick;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: (context) => IdeaView(
-                      index: index,
-                    )));
-      },
+      onTap: onclick,
       child: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
         child: Row(
@@ -334,7 +375,7 @@ class HomeCard extends StatelessWidget {
                   width: 84,
                   height: 84,
                   color: Colors.grey,
-                  child: Image.network(thumbnaill,fit: BoxFit.cover),
+                  child: Image.network(thumbnaill, fit: BoxFit.cover),
                 ),
                 // Positioned(
                 //   bottom: 8,
@@ -361,7 +402,8 @@ class HomeCard extends StatelessWidget {
                   Text(
                     title,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: const LetterStyle(
+                      color: Colorss.text1,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -377,7 +419,8 @@ class HomeCard extends StatelessWidget {
                         children: [
                           Text(
                             "닉네임 · $created",
-                            style: const TextStyle(
+                            style: const LetterStyle(
+                              color: Colorss.text2,
                               fontSize: 14,
                             ),
                           ),
@@ -385,8 +428,9 @@ class HomeCard extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            "$price원",
-                            style: const TextStyle(
+                            "${PriceComma.getComma(price)}P",
+                            style: const LetterStyle(
+                              color: Colorss.text1,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -396,12 +440,18 @@ class HomeCard extends StatelessWidget {
                       const Spacer(),
                       Row(
                         children: [
-                          const Icon(Icons.bookmark_outline),
+                          const Icon(
+                            Icons.bookmark_outline,
+                            color: Colorss.text2,
+                          ),
+                          SizedBox(
+                            width: 3,
+                          ),
                           Text(
                             '$bookmarkCount',
-                            style: const TextStyle(
+                            style: const LetterStyle(
                               fontSize: 16,
-                              color: Colorss.text1,
+                              color: Colorss.text2,
                             ),
                           ),
                         ],
@@ -409,6 +459,72 @@ class HomeCard extends StatelessWidget {
                     ],
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Category extends StatelessWidget {
+  const Category(
+      {Key? key,
+      required this.active,
+      required this.onclick,
+      required this.url,
+      required this.text})
+      : super(key: key);
+
+  final bool active;
+
+  final VoidCallback onclick;
+
+  final String url;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 6),
+      child: InkWell(
+        onTap: onclick,
+        child: Stack(
+          children: [
+            Container(
+              width: 118,
+              height: 52,
+              color: Colors.white,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image(
+                  image: AssetImage(url),
+                  fit: BoxFit.cover,
+                  colorBlendMode: BlendMode.darken,
+                ),
+              ),
+            ),
+            Container(
+              width: 118,
+              height: 52,
+              decoration: BoxDecoration(
+                color:
+                    active ? const Color(0xE85835E2) : const Color(0x80000000),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  text,
+                  style: LetterStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: active ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
               ),
             ),
           ],

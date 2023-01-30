@@ -76,10 +76,10 @@ class WriteModel extends ChangeNotifier {
 
   int _price = 0;
 
-  int _category = -1;
+  int _category = 0;
 
-  String _thumbnail =
-      "https://inmat.s3.ap-northeast-1.amazonaws.com/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2023-01-29+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+9.40.27.png";
+  String _thumbnail ='https://inmat.s3.ap-northeast-1.amazonaws.com/Rectangle+288.png';
+      // "https://inmat.s3.ap-northeast-1.amazonaws.com/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2023-01-29+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+9.40.27.png";
   bool _is_commercial_available = false;
 
   bool _is_patent_available = false;

@@ -16,7 +16,7 @@ class CommunityApi {
     InMatHttp inMatHttp = InMatHttp(
       Http.get,
       message: "특정 아이디어 불러오기",
-      url: "/trade/$id",
+      url: "/trade/bought_idea/$id",
       // token: InMatAuth.instance?.currentUser?.token,
     );
     return await inMatHttp.execute();

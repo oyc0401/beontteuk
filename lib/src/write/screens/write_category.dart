@@ -1,5 +1,19 @@
+import 'package:beontteuk/src/home/screens/home.dart';
 import 'package:beontteuk/src/navigation/navigation.dart';
 import 'package:beontteuk/src/write/image_to_url.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +46,7 @@ class WriteCategory extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       "카테고리",
-                      style: TextStyle(
+                      style: LetterStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colorss.text1,
@@ -44,78 +58,100 @@ class WriteCategory extends StatelessWidget {
                   ),
                   Container(
                     height: 52,
-                    child:
-                        ListView(scrollDirection: Axis.horizontal, children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      for (int i = 0; i <= 10; i++)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 6),
-                          child: InkWell(
-                            onTap: () {
-                              if (Provider.of<WriteModel>(context,
-                                          listen: false)
-                                      .category ==
-                                  i) {
-                                Provider.of<WriteModel>(context, listen: false)
-                                    .category = -1;
-                              } else {
-                                Provider.of<WriteModel>(context, listen: false)
-                                    .category = i;
-                              }
-                            },
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: 118,
-                                  height: 52,
-                                  color: Colors.white,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: const Image(
-                                      image: AssetImage(
-                                          'assets/home/strawberries-1396330_1920.jpg'),
-                                      fit: BoxFit.cover,
-                                      colorBlendMode: BlendMode.darken,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 118,
-                                  height: 52,
-                                  decoration: BoxDecoration(
-                                    color: Provider.of<WriteModel>(context)
-                                                .category ==
-                                            i
-                                        ? const Color(0xE85835E2)
-                                        : const Color(0x80000000),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                Positioned.fill(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '요리/식품',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight:
-                                            Provider.of<WriteModel>(context)
-                                                        .category ==
-                                                    i
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(
+                          width: 10,
                         ),
-                    ]),
+                        // for (int i = 0; i <= 10; i++)
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 0;
+                          },
+                          text: "요리/식품",
+                          url: "assets/home/strawberries-1396330_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  0,
+                        ),
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 1;
+                          },
+                          text: "취미",
+                          url: "assets/home/knitting-1268932_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  1,
+                        ),
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 2;
+                          },
+                          text: "친환경",
+                          url: "assets/home/leaf-1453071_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  2,
+                        ),
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 3;
+                          },
+                          text: "사무",
+                          url: "assets/home/laptop-3196481_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  3,
+                        ),
+
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 4;
+                          },
+                          text: "IT",
+                          url: "assets/home/laptop-2620118_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  4,
+                        ),
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 5;
+                          },
+                          text: "패션/의류",
+                          url: "assets/home/closet-912694_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  5,
+                        ),
+                        Category(
+                          onclick: () {
+                            Provider.of<WriteModel>(context, listen: false)
+                                .category = 6;
+                          },
+                          text: "인테리어",
+                          url: "assets/home/living-room-2732939_1920.jpg",
+                          active:
+                              Provider.of<WriteModel>(context, listen: false)
+                                      .category ==
+                                  6,
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -127,14 +163,14 @@ class WriteCategory extends StatelessWidget {
                         ),
                         Text(
                           "아이디어 가격",
-                          style: TextStyle(
+                          style: LetterStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colorss.text1,
                           ),
                         ),
                         Container(
-                            height: 30,
+                            height: 45,
                             child: TextField(
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
@@ -147,15 +183,16 @@ class WriteCategory extends StatelessWidget {
                                       .price = int.parse(text);
                                 }
                               },
+
                               keyboardType: TextInputType.number,
                               cursorColor: Colorss.brand,
                               decoration: InputDecoration(
-                                // hintText: "가격을 입력하세요.",
-                                // hintStyle: TextStyle(
-                                //   fontSize: 16,
-                                //   // fontWeight: FontWeight.bold,
-                                //   color: Colorss.text2,
-                                // ),
+                                hintText: "무료",
+                                hintStyle: LetterStyle(
+                                  fontSize: 16,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colorss.text2,
+                                ),
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Color(0xff262626))),
@@ -169,7 +206,7 @@ class WriteCategory extends StatelessWidget {
                         ),
                         Text(
                           "대표 이미지 선택",
-                          style: TextStyle(
+                          style: LetterStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colorss.text1,
@@ -194,37 +231,47 @@ class WriteCategory extends StatelessWidget {
                           child: Stack(
                             children: [
                               Container(
-                                width:10000,
-
+                                width: 10000,
                                 child: ClipRRect(
+
                                   borderRadius: BorderRadius.circular(3),
                                   child: Image.network(
-                                      Provider.of<WriteModel>(context).thumbnail),
+                                      Provider.of<WriteModel>(context)
+                                          .thumbnail,fit: BoxFit.fitWidth,),
                                 ),
                               ),
                               Positioned.fill(
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.camera_alt_outlined,
-                                        color: Colors.white,
-                                        size: 40,
-                                      ),
-                                      Text(
-                                        "이미지 업로드",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          // fontWeight: FontWeight.bold,
+                                  child: Container(
+                                    color: Color(0x80000000),
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.camera_alt_outlined,
                                           color: Colors.white,
+                                          size: 40,
                                         ),
-                                      ),
-                                    ],
+                                        Text(
+                                          "이미지 업로드",
+                                          style: LetterStyle(
+                                            fontSize: 14,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
+
+
+
                             ],
                           ),
                         ),
@@ -233,7 +280,7 @@ class WriteCategory extends StatelessWidget {
                         ),
                         Text(
                           "이용 가능 범위",
-                          style: TextStyle(
+                          style: LetterStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colorss.text1,
@@ -246,7 +293,7 @@ class WriteCategory extends StatelessWidget {
                           children: [
                             Text(
                               "상업적 용도",
-                              style: TextStyle(
+                              style: LetterStyle(
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
                                 color: Colorss.text1,
@@ -255,7 +302,7 @@ class WriteCategory extends StatelessWidget {
                             Spacer(),
                             Text(
                               "불가능",
-                              style: TextStyle(
+                              style: LetterStyle(
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
                                 color: Colorss.text1,
@@ -270,7 +317,7 @@ class WriteCategory extends StatelessWidget {
                           children: [
                             Text(
                               "특허 출원",
-                              style: TextStyle(
+                              style: LetterStyle(
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
                                 color: Colorss.text1,
@@ -279,7 +326,7 @@ class WriteCategory extends StatelessWidget {
                             Spacer(),
                             Text(
                               "불가능",
-                              style: TextStyle(
+                              style: LetterStyle(
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
                                 color: Colorss.text1,
@@ -292,7 +339,7 @@ class WriteCategory extends StatelessWidget {
                         ),
                         Text(
                           "해시태그",
-                          style: TextStyle(
+                          style: LetterStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colorss.text1,
@@ -332,7 +379,7 @@ class WriteCategory extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           "#$tag",
-                                          style: TextStyle(
+                                          style: LetterStyle(
                                               fontSize: 16,
                                               color: Colorss.text1),
                                         ),
@@ -340,16 +387,16 @@ class WriteCategory extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                              Container(
+                                height: 46,
+                                width: 410,
+                                child: NewWidget(),
+                              ),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 46,
-                          child: NewWidget(),
-                        ),
+
+
                         SizedBox(
                           height: 33,
                         ),
@@ -378,7 +425,8 @@ class WriteCategory extends StatelessWidget {
 
                               Navigator.pushAndRemoveUntil(
                                   context,
-                                  CupertinoPageRoute(builder: (context) => NavigatePage()),
+                                  CupertinoPageRoute(
+                                      builder: (context) => NavigatePage()),
                                   (route) => false);
                               // Navigator.pop(context);
                             },
@@ -389,7 +437,7 @@ class WriteCategory extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   "발행하기",
-                                  style: TextStyle(
+                                  style: LetterStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -430,7 +478,18 @@ class NewWidget extends StatelessWidget {
       onSubmitted: (text) {
         Provider.of<WriteModel>(context, listen: false).addHashTag(text);
         controller.text = '';
+
+
       },
+
+      decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+            borderSide:
+            BorderSide(color: Color(0xff262626))),
+        border: UnderlineInputBorder(
+            borderSide:
+            BorderSide(color: Color(0xff262626))),
+      ),
     );
   }
 }

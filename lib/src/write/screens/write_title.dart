@@ -2,6 +2,14 @@ import 'dart:ui';
 
 import 'package:beontteuk/src/write/screens/write_context.dart';
 import 'package:beontteuk/utils/colorss.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
 import 'package:beontteuk/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +40,7 @@ class WriteTitle extends StatelessWidget {
                 ),
                 Text(
                   "아이디어 업로드\n독려 문구",
-                  style: TextStyle(
+                  style: LetterStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colorss.text1,
@@ -43,7 +51,7 @@ class WriteTitle extends StatelessWidget {
                 ),
                 Text(
                   "아이디어 제목",
-                  style: TextStyle(
+                  style: LetterStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colorss.text1,
@@ -66,7 +74,7 @@ class WriteTitle extends StatelessWidget {
                     ),
 
                     hintText: "제목을 입력하세요. (30자 내외)",
-                    hintStyle: TextStyle(
+                    hintStyle: LetterStyle(
                       fontSize: 16,
                       // fontWeight: FontWeight.bold,
                       color: Colorss.text2,
@@ -85,7 +93,7 @@ class WriteTitle extends StatelessWidget {
                   children: [
                     Text(
                       "${Provider.of<WriteModel>(context).title.length}자 / 30자",
-                      style: TextStyle(
+                      style: LetterStyle(
                         fontSize: 14,
                         // fontWeight: FontWeight.bold,
                         color: Colorss.text1,
@@ -98,7 +106,7 @@ class WriteTitle extends StatelessWidget {
                 ),
                 Text(
                   "아이디어 요약",
-                  style: TextStyle(
+                  style: LetterStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colorss.text1,
@@ -120,7 +128,7 @@ class WriteTitle extends StatelessWidget {
                     filled: true,
                     fillColor: Color(0xffF3F3F3),
                     hintText: "아이디어의 특징을 간단히 요약해 주세요. (150자 내외)",
-                    hintStyle: TextStyle(
+                    hintStyle: LetterStyle(
                       fontSize: 16,
                       // fontWeight: FontWeight.bold,
                       color: Colorss.text2,
@@ -136,7 +144,7 @@ class WriteTitle extends StatelessWidget {
                   children: [
                     Text(
                       "${Provider.of<WriteModel>(context).overview.length}자 / 150자",
-                      style: TextStyle(
+                      style: LetterStyle(
                         fontSize: 14,
                         // fontWeight: FontWeight.bold,
                         color: Colorss.text1,
@@ -179,7 +187,7 @@ class WriteTitle extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "다음",
-                    style: TextStyle(
+                    style: LetterStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
