@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ImageToUrl {
   Future<String> getUrl() async {
@@ -22,31 +23,33 @@ class ImageToUrl {
     // print(upload);
     print(upload.files.first);
 
-    String url= await InMatApi.community.getImageUrl(upload.files.first.name);
+    String url = await InMatApi.community.getImageUrl(upload.files.first.name);
 
     print(url);
 
-
-
-    await _uploadToSignedURL(file: upload.files.first,url: url);
-
+    await _uploadToSignedURL(file: upload.files.first, url: url);
 
     return "https://inmat.s3.ap-northeast-1.amazonaws.com/${upload.files.first.name}";
   }
 
-
-  Future<String> getCameraUrl(String path)async{
-
+  Future<String> getCameraUrl(String path) async {
     File file = File(path);
     String name = basename(file.path);
 
     print(file);
     print(name);
 
-    String url= await InMatApi.community.getImageUrl(name);
+    String url = await InMatApi.community.getImageUrl(name);
 
+    Uint8List? byte;
 
-    Uint8List? byte = await _readFileByte(file.path);
+    if (kIsWeb) {
+      byte = file.readAsBytesSync();
+
+      print("카메라??");
+    } else {
+      byte = await _readFileByte(file.path);
+    }
 
     http.Response response = await http.put(Uri.parse(url), body: byte);
     print(response.statusCode);
@@ -54,9 +57,8 @@ class ImageToUrl {
 
     return "https://inmat.s3.ap-northeast-1.amazonaws.com/$name";
 
-  // PlatformFile platformFile=PlatformFile(name: name, size: size)
+    // PlatformFile platformFile=PlatformFile(name: name, size: size)
 // /data/user/0/com.oyc0401.beontteuk/cache/CAP9081181283050997484.jpg
-
 
     // String url= await InMatApi.community.getImageUrl(path);
     //
@@ -75,10 +77,14 @@ class ImageToUrl {
     // return "https://inmat.s3.ap-northeast-1.amazonaws.com/${upload.files.first.name}";
   }
 
-
   Future<int> _uploadToSignedURL(
       {required PlatformFile file, required String url}) async {
-    Uint8List? byte = await _readFileByte(file.path!);
+    Uint8List? byte;
+    if (kIsWeb) {
+      byte = file.bytes;
+    } else {
+      byte = await _readFileByte(file.path!);
+    }
 
     http.Response response = await http.put(Uri.parse(url), body: byte);
     print(response.statusCode);
