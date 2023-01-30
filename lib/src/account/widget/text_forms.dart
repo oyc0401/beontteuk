@@ -1,4 +1,3 @@
-
 import 'package:beontteuk/utils/colorss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +22,7 @@ class LoginInputs extends StatelessWidget {
           },
           hint: "아이디를 입력하세요",
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 8),
         LoginField(
           onChanged: (text) {
             Provider.of<EmailSignInModel>(context, listen: false)
@@ -70,15 +69,10 @@ class DeleteButton extends StatelessWidget {
           ),
           onTap: onclick,
           child: Center(
-            child: Container(
-              width: 14,
-              height: 14,
-              decoration: BoxDecoration(
-                color: Provider.of<EmailSignInModel>(context).warning
-                    ? const Color(0xffFFA6A6)
-                    : const Color(0xffDBDBDB),
-                borderRadius: const BorderRadius.all(Radius.circular(30)),
-              ),
+            child: Icon(
+              Icons.cancel,
+              size: 20,
+              color: Color(0xffDBDBDB),
             ),
           ),
         ),
@@ -109,6 +103,13 @@ class _LoginFieldState extends State<LoginField> {
   final TextEditingController controller = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.text = widget.obscure ? "qwe123" : "test123";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Ink(
       color: Provider.of<EmailSignInModel>(context).warning
@@ -129,8 +130,8 @@ class _LoginFieldState extends State<LoginField> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                contentPadding:
-                    const EdgeInsets.only(top: 13, bottom: 14, left: 11, right: 8),
+                contentPadding: const EdgeInsets.only(
+                    top: 13, bottom: 14, left: 11, right: 8),
                 hintText: widget.hint,
                 hintStyle: const LetterStyle(
                   fontSize: 16,

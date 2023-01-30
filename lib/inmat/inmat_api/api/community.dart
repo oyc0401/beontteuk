@@ -115,6 +115,31 @@ class CommunityApi {
     return await inMatHttp.execute();
   }
 
+  Future<List> getSearch(String word) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "검색어 가져오기: $word",
+      url: "/search/$word",
+      // token: user_id.toString(),
+    );
+    return await inMatHttp.execute();
+  }
+
+
+  Future<List> getCategory(int categoryId) async {
+    InMatHttp inMatHttp = InMatHttp(
+      Http.get,
+      message: "카테고리 가져오기: $categoryId",
+      url: "/search/category/$categoryId",
+      // token: user_id.toString(),
+    );
+    return await inMatHttp.execute();
+  }
+
+
+
+
+
 
 
 

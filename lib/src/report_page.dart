@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WriteReviewPage extends StatefulWidget {
-  WriteReviewPage({Key? key, required this.text}) : super(key: key);
+class ReportPage extends StatefulWidget {
+  ReportPage({Key? key, required this.text}) : super(key: key);
   final String text;
   @override
-  _WriteReviewPageState createState() => _WriteReviewPageState();
+  _ReportPageState createState() => _ReportPageState();
 }
 
-class _WriteReviewPageState extends State<WriteReviewPage> {
+class _ReportPageState extends State<ReportPage> {
   late WebViewController _controller;
 
   @override

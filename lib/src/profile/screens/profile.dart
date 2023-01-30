@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/date_parse.dart';
 import '../../home/screens/home.dart';
+import '../../ideas/screens/bobobught_idea.dart';
 import '../../ideas/screens/bought_idea.dart';
 import '../../navigation/navigation.dart';
 
@@ -50,6 +51,7 @@ class _ProfileState extends State<Profile> {
           ? Container()
           : SingleChildScrollView(
               child: Column(
+                // crossAxisAlignment:,
                 children: [
                   SizedBox(
                     height: 26,
@@ -61,9 +63,9 @@ class _ProfileState extends State<Profile> {
                     width: 87,
                     height: 87,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1000),
-                      child: Image.network(
-                        'https://inmat.s3.ap-northeast-1.amazonaws.com/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2023-01-29+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+9.40.27.png',
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        'assets/dog.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -71,12 +73,22 @@ class _ProfileState extends State<Profile> {
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    profile['nickname'],
-                    style: TextStyle(
-                      color: Colorss.text1,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: () {
+                      InMatAuth.instance.signOut();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(builder: (context) => LoginPage()),
+                        (route) => false,
+                      );
+                    },
+                    child: Text(
+                      profile['nickname'],
+                      style: TextStyle(
+                        color: Colorss.text1,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -180,68 +192,86 @@ class _ProfileState extends State<Profile> {
                     height: 5,
                     color: Color(0xffF3F3F3),
                   ),
+                  SizedBox(
+                    height: 16,
+                  ),
                   Row(
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            "판매글",
-                            style: TextStyle(
-                              color: Colorss.text1,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                      SizedBox(
+                        width: 16,
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            "판매글",
-                            style: TextStyle(
-                              color: Colorss.text1,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            "판매글",
-                            style: TextStyle(
-                              color: Colorss.text1,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            "판매글",
-                            style: TextStyle(
-                              color: Colorss.text1,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      Text(
+                        "내가 구매한 글",
+                        style: TextStyle(
+                          color: Colorss.text1,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
+                  // Row(
+                  //   children: [
+                  //     InkWell(
+                  //       onTap: () {},
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.all(16.0),
+                  //         child: Text(
+                  //           "판매글",
+                  //           style: TextStyle(
+                  //             color: Colorss.text1,
+                  //             fontSize: 16,
+                  //             fontWeight: FontWeight.bold,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     // InkWell(
+                  //     //   onTap: () {},
+                  //     //   child: Padding(
+                  //     //     padding: const EdgeInsets.all(16.0),
+                  //     //     child: Text(
+                  //     //       "판매글",
+                  //     //       style: TextStyle(
+                  //     //         color: Colorss.text1,
+                  //     //         fontSize: 16,
+                  //     //         fontWeight: FontWeight.bold,
+                  //     //       ),
+                  //     //     ),
+                  //     //   ),
+                  //     // ),
+                  //     // InkWell(
+                  //     //   onTap: () {},
+                  //     //   child: Padding(
+                  //     //     padding: const EdgeInsets.all(16.0),
+                  //     //     child: Text(
+                  //     //       "판매글",
+                  //     //       style: TextStyle(
+                  //     //         color: Colorss.text1,
+                  //     //         fontSize: 16,
+                  //     //         fontWeight: FontWeight.bold,
+                  //     //       ),
+                  //     //     ),
+                  //     //   ),
+                  //     // ),
+                  //     // InkWell(
+                  //     //   onTap: () {},
+                  //     //   child: Padding(
+                  //     //     padding: const EdgeInsets.all(16.0),
+                  //     //     child: Text(
+                  //     //       "판매글",
+                  //     //       style: TextStyle(
+                  //     //         color: Colorss.text1,
+                  //     //         fontSize: 16,
+                  //     //         fontWeight: FontWeight.bold,
+                  //     //       ),
+                  //     //     ),
+                  //     //   ),
+                  //     // ),
+                  //   ],
+                  // ),
                   SizedBox(
-                    height: 20,
+                    height: 16,
                   ),
                   content
                 ],
@@ -270,8 +300,8 @@ class _HomesState extends State<Homes> {
 
   init() async {
     ideas = await InMatApi.community.getIdeas();
-
     print(ideas);
+
     setState(() {});
   }
 
@@ -288,8 +318,8 @@ class _HomesState extends State<Homes> {
               Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => BoughtIdea(
-                    index: int.parse(ideas[index]['index']),
+                  builder: (context) => BoboughtIdea(
+                    index:ideas[index]['index'],
                   ),
                 ),
               );

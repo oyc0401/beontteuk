@@ -39,7 +39,7 @@ class WriteTitle extends StatelessWidget {
                   height: 39,
                 ),
                 Text(
-                  "아이디어 업로드\n독려 문구",
+                  "아이디어가\n반짝이는 순간",
                   style: LetterStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,

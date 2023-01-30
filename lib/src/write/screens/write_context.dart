@@ -1,16 +1,6 @@
 import 'package:beontteuk/utils/colorss.dart';
 import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/letter_space_text_style.dart';
-import 'package:beontteuk/utils/toast.dart';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +53,10 @@ class WriteContext extends StatelessWidget {
                     ...contents(context),
                     InkWell(
                       onTap: () {
+                        for (FocusNode node in focusNodes) {
+                          node.unfocus();
+                        }
+
                         flutterDialog(context);
                       },
                       child: Ink(
@@ -357,6 +351,8 @@ class WriteContext extends StatelessWidget {
 
       switch (post.postType) {
         case PostType.text:
+          focusNodes.add(FocusNode());
+
           result.add(Padding(
             padding: const EdgeInsets.only(bottom: 9.0),
             child: PostField(
@@ -382,17 +378,24 @@ class WriteContext extends StatelessWidget {
   }
 }
 
+List<FocusNode> focusNodes = [FocusNode()];
+
 class PostField extends StatelessWidget {
   const PostField({Key? key, required this.index}) : super(key: key);
 
   final int index;
 
+  // TextEditingController controller=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    // controller.
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         TextField(
+          focusNode: focusNodes[index],
+          // controller: controller,
           onChanged: (text) {
             Provider.of<WriteModel>(context, listen: false)
                 .contents[index]

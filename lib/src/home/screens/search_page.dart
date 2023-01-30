@@ -1,5 +1,7 @@
+import 'package:beontteuk/src/home/screens/searchedPage.dart';
 import 'package:beontteuk/src/home/widgets/search_input.dart';
 import 'package:beontteuk/utils/colorss.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatelessWidget {
@@ -29,7 +31,16 @@ class SearchPage extends StatelessWidget {
                 onChanged: (text) {
                   search = text;
                 },
-                onSubmitted: (text) {},
+                onSubmitted: (text) {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => SearchedPage(
+                        text: search,
+                      ),
+                    ),
+                  );
+                },
                 inputController: controller,
                 onClickDelete: () {
                   search = '';

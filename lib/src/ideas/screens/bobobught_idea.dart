@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:beontteuk/inmat/auth/inmat_auth.dart';
 import 'package:beontteuk/inmat/inmat_api/inmat_api.dart';
 import 'package:beontteuk/src/ideas/screens/buy_page.dart';
@@ -20,16 +19,16 @@ import 'package:http/http.dart' as http;
 
 import '../../../utils/price_comma.dart';
 
-class IdeaView extends StatefulWidget {
-  IdeaView({Key? key, required this.index}) : super(key: key);
+class BoboughtIdea extends StatefulWidget {
+  BoboughtIdea({Key? key, required this.index}) : super(key: key);
 
   final int index;
 
   @override
-  _IdeaViewState createState() => _IdeaViewState();
+  _BoboughtIdeaState createState() => _BoboughtIdeaState();
 }
 
-class _IdeaViewState extends State<IdeaView> {
+class _BoboughtIdeaState extends State<BoboughtIdea> {
   @override
   initState() {
     super.initState();
@@ -63,19 +62,9 @@ class _IdeaViewState extends State<IdeaView> {
 
   int get price => map['price'];
 
-  int get rating_cnt {
-    int rnd = Random().nextInt(45) + 1;
-    return rnd;
-  }
+  int get rating_cnt => map['rating_cnt'];
 
-// int get rating_cnt => map['rating_cnt'];
-
-  double get rating {
-    double rnd = Random().nextDouble()*5;
-    return double.parse(rnd.toStringAsFixed(2)) ;
-  }
-
-  // double get rating => map['rating'].toDouble();
+  double get rating => map['rating'].toDouble();
 
   String get tag {
     List list = contents['hashTags'];
@@ -88,6 +77,8 @@ class _IdeaViewState extends State<IdeaView> {
     }
   }
 
+  bool active = false;
+
   String get nickname => map['nickname'];
 
   int soldIdea = 79;
@@ -98,15 +89,53 @@ class _IdeaViewState extends State<IdeaView> {
 
   Map get contents {
     Map m = json.decode(map['description']);
-
     return m;
+  }
+
+  Widget contentWidget(Map contents) {
+    print(contents);
+
+    List<Widget> result = [];
+
+    for (Map m in contents['content']) {
+      if (m['type'] == 'text') {
+        result.add(
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 9.0,
+              left: 16,
+              right: 16,
+            ),
+            child: Container(
+              width: double.infinity,
+              child: Text(
+                m['content'],
+                style: LetterStyle(
+                  color: Colorss.text1,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        );
+      } else {
+        result.add(Padding(
+            padding: const EdgeInsets.only(top: 9.0,left: 16,
+              right: 16,),
+            child: Image.network(
+              m['content'],
+              fit: BoxFit.fitWidth,
+            )));
+      }
+    }
+
+    return Column(
+      children: result,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    double rat=rating;
-    int rat_cnt=rating_cnt;
-
     if (!success) {
       return const Scaffold();
     }
@@ -192,7 +221,18 @@ class _IdeaViewState extends State<IdeaView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    height: 17,
+                    height: 19,
+                  ),
+                  Text(
+                    title,
+                    style: const LetterStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colorss.text1,
+                    ),
+                  ),
+                  Container(
+                    height: 2,
                   ),
                   Row(
                     children: [
@@ -200,7 +240,7 @@ class _IdeaViewState extends State<IdeaView> {
                         tag,
                         style: const LetterStyle(
                           fontSize: 14,
-                          color: Color(0xff0066FF),
+                          color: Colorss.text1,
                         ),
                       ),
                       const SizedBox(
@@ -216,116 +256,6 @@ class _IdeaViewState extends State<IdeaView> {
                     ],
                   ),
                   const SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    title,
-                    style: const LetterStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colorss.text1,
-                    ),
-                  ),
-                  Container(
-                    height: 9,
-                  ),
-                  Row(
-                    children: [
-                      ReviewStar(
-                        score: rat,
-                      ),
-                      Text(
-                        '평점 $rat ($rat_cnt)',
-                        style: const LetterStyle(
-                          fontSize: 16,
-                          color: Colorss.text1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 26,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            print("다른 사람 프로필 페이지 이동 user_id: $user_id");
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 47,
-                                height: 47,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset(
-                                    'assets/dog.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 14,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    nickname,
-                                    style: const LetterStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colorss.text1,
-                                    ),
-                                  ),
-                                  Text(
-                                    "판매 아이디어 $soldIdea개",
-                                    style: const LetterStyle(
-                                      fontSize: 16,
-                                      // fontWeight: FontWeight.bold,
-                                      color: Colorss.text2,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-
-                      // const Spacer(),
-                      InkWell(
-                        onTap: () {
-                          print("쪽지 보내기 페이지 이동 user_id: $user_id");
-                        },
-                        borderRadius: BorderRadius.circular(4),
-                        child: Ink(
-                          width: 109,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "쪽지 보내기",
-                              style: LetterStyle(
-                                fontSize: 16,
-                                // fontWeight: FontWeight.bold,
-                                color: Colorss.text1,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
                     height: 22,
                   ),
                 ],
@@ -336,8 +266,8 @@ class _IdeaViewState extends State<IdeaView> {
           SliverToBoxAdapter(
             child: Container(
               width: double.infinity,
-              height: 5,
-              color: const Color(0xffF3F3F3),
+              height: 1,
+              color: const Color(0xffDCDCDC),
             ),
           ),
 
@@ -389,7 +319,41 @@ class _IdeaViewState extends State<IdeaView> {
                     ],
                   ),
                   const SizedBox(
-                    height: 23,
+                    height: 27,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (active) {
+                        active = false;
+                        setState(() {});
+                      } else {
+                        active = true;
+                        setState(() {});
+                      }
+                    },
+                    child: Ink(
+                      height: 49,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: Colorss.brand,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '아이디어열람',
+                          style: const LetterStyle(
+                            fontSize: 16,
+                            // fontWeight: FontWeight.bold,
+                            color: Colorss.brand,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 18,
                   ),
                 ],
               ),
@@ -404,35 +368,241 @@ class _IdeaViewState extends State<IdeaView> {
             ),
           ),
 
+          !active
+              ? SliverToBoxAdapter(child: Container())
+              : SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 23,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          '아이디어',
+                          style: const LetterStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colorss.text1,
+                          ),
+                        ),
+                      ),
+                      contentWidget(contents),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: InkWell(
+                          onTap: () {},
+                          child: Ink(
+                            height: 49,
+                            decoration: BoxDecoration(
+                              color: Colorss.brand,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '리뷰 작성',
+                                style: const LetterStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 5,
+                        color: const Color(0xffF3F3F3),
+                      ),
+                    ],
+                  ),
+                ),
+
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 15,
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        print("다른 사람 프로필 페이지 이동 user_id: $user_id");
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 47,
+                            height: 47,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                'assets/dog.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 14,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                nickname,
+                                style: const LetterStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colorss.text1,
+                                ),
+                              ),
+                              Text(
+                                "판매 아이디어 $soldIdea개",
+                                style: const LetterStyle(
+                                  fontSize: 16,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colorss.text2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+
+                  // const Spacer(),
+                  InkWell(
+                    onTap: () {
+                      print("쪽지 보내기 페이지 이동 user_id: $user_id");
+                    },
+                    borderRadius: BorderRadius.circular(4),
+                    child: Ink(
+                      width: 109,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "쪽지 보내기",
+                          style: LetterStyle(
+                            fontSize: 16,
+                            // fontWeight: FontWeight.bold,
+                            color: Colorss.text1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 19,
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: Container(
+              width: double.infinity,
+              height: 5,
+              color: const Color(0xffF3F3F3),
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 13,
+            ),
+          ),
+
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 19,
-                  ),
                   Text(
-                    "후기($rat_cnt)",
+                    '이용 가능 범위',
                     style: const LetterStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colorss.text1,
                     ),
                   ),
-                  const SizedBox(
-                    height: 19,
+                  SizedBox(
+                    height: 7,
                   ),
-                  for (int i = 0; i < rat_cnt; i++)
-                    const ReviewCard(
-                      score: 4,
-                      contents:
-                          "세상을 바꿀 아이디어 그 자체 일론 머스크도 꼬막 무침 한 입 먹고선 따봉을 날렸다죠! 최고의 꼬막무침은 와사비 꼬막무침이라는 사실을 이제야 깨닫습니다. 저는 앞으로 삼시세끼 와사비 꼬막무침 먹기 챌린지를 열어 볼 생각입니다.",
-                      date: "어제",
-                      image: "개",
-                      nickname: "침착한 비버",
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        '상업적 용도',
+                        style: const LetterStyle(
+                          fontSize: 16,
+                          // fontWeight: FontWeight.bold,
+                          color: Colorss.text1,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        '이용가능',
+                        style: const LetterStyle(
+                          fontSize: 16,
+                          // fontWeight: FontWeight.bold,
+                          color: Colorss.text1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '특허 출원',
+                        style: const LetterStyle(
+                          fontSize: 16,
+                          // fontWeight: FontWeight.bold,
+                          color: Colorss.text1,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        '불가능',
+                        style: const LetterStyle(
+                          fontSize: 16,
+                          // fontWeight: FontWeight.bold,
+                          color: Colorss.text1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
                 ],
               ),
             ),
@@ -454,109 +624,6 @@ class _IdeaViewState extends State<IdeaView> {
           //   ),
           // ),
         ],
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: const Color(0xffDCDCDC),
-            ),
-            const SizedBox(
-              height: 9,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                IconButton(
-                  onPressed: () async {
-                    if (bookmarked) {
-                      bookmarked = false;
-
-                      // /collection/add
-
-                      await InMatApi.community.deleteBookMark(widget.index);
-
-                      print('북마크 취소 index: ${widget.index}');
-                    } else {
-                      bookmarked = true;
-
-                      await InMatApi.community.setBookMark(widget.index);
-                      print('북마크 설정 index: ${widget.index}');
-                    }
-                    setState(() {});
-                  },
-                  icon: Icon(
-                    bookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                    color: bookmarked
-                        ? const Color(0xffD70D0D)
-                        : const Color(0xffDCDCDC),
-                  ),
-                  iconSize: 32,
-                ),
-                const SizedBox(
-                  width: 14,
-                ),
-                Container(
-                  width: 1,
-                  height: 19,
-                  color: const Color(0xffDCDCDC),
-                ),
-                const SizedBox(
-                  width: 18,
-                ),
-                Text(
-                  "${PriceComma.getComma(price)}P",
-                  style: const LetterStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colorss.text1,
-                  ),
-                ),
-                const Spacer(),
-                InkWell(
-                  onTap: () {
-                    if (isWriter) {
-                      print("수정하기 페이지 이동 index: ${widget.index}");
-                    } else {
-                      print("구매하기 페이지 이동 index: ${widget.index}");
-                    }
-                  },
-                  borderRadius: BorderRadius.circular(4),
-                  child: Ink(
-                    width: 142,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: Colorss.brand,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        isWriter ? "수정하기" : "구매하기",
-                        style: const LetterStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 14,
-            ),
-          ],
-        ),
       ),
     );
   }

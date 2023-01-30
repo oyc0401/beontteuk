@@ -23,18 +23,18 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   List mails = [
-    {
-      "index": 1,
-      "from_id": 1234,
-      "to_id": 1234,
-      "description": "string",
-      "sended": "2023-01-26T13:29:20.803Z"
-    }
+    // {
+    //   "index": 1,
+    //   "from_id": 1234,
+    //   "to_id": 1234,
+    //   "description": "string",
+    //   "sended": "2023-01-26T13:29:20.803Z"
+    // }
   ];
 
   init() async {
-    // mails = await InMatApi.community
-    //     .getMail(int.parse(InMatAuth.instance.currentUser!.token));
+    mails = await InMatApi.community
+        .getMail(int.parse(InMatAuth.instance.currentUser!.token));
   }
 
   @override
@@ -46,43 +46,58 @@ class _MessagePageState extends State<MessagePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 16,
-              ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 16,
+            ),
 
-              Text(
-                "받은 쪽지함",
-                style: TextStyle(
-                  color: Colorss.text1,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+            Text(
+              "받은 쪽지함",
+              style: TextStyle(
+                color: Colorss.text1,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(
-                height: 20,
-              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
 
-              for (Map map in mails)
-                MailBox(
-                  image: "dsada",
-                  description: map['description'],
-                  sended: map['sended'],
-                  user_id: map['from_id'],
-                  to_user_id: map['to_id'],
-                ),
-              // CupertinoButton(
-              //   child: Text("쪽지 페이지 이동"),
-              //   onPressed: () {
-              //     Navigator.push(context,
-              //         CupertinoPageRoute(builder: (context) => MessagePage()));
-              //   },
-              // ),
-            ],
-          ),
+            mails.isEmpty
+                ? Expanded(
+                    child: Center(
+                        child: Text(
+                      "쪽지가 없습니다.",
+                      style: TextStyle(
+                        color: Colorss.text1,
+                        fontSize: 14,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    )),
+                  )
+                : Column(
+                    children: [
+                      for (Map map in mails)
+                        MailBox(
+                          image: "dsada",
+                          description: map['description'],
+                          sended: map['sended'],
+                          user_id: map['from_id'],
+                          to_user_id: map['to_id'],
+                        ),
+                    ],
+                  )
+
+            // CupertinoButton(
+            //   child: Text("쪽지 페이지 이동"),
+            //   onPressed: () {
+            //     Navigator.push(context,
+            //         CupertinoPageRoute(builder: (context) => MessagePage()));
+            //   },
+            // ),
+          ],
         ),
       ),
     );
