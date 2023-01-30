@@ -55,7 +55,7 @@ class _MessagePageState extends State<MessagePage> {
 
             Text(
               "받은 쪽지함",
-              style: TextStyle(
+              style: LetterStyle(
                 color: Colorss.text1,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _MessagePageState extends State<MessagePage> {
                     child: Center(
                         child: Text(
                       "쪽지가 없습니다.",
-                      style: TextStyle(
+                      style: LetterStyle(
                         color: Colorss.text1,
                         fontSize: 14,
                         // fontWeight: FontWeight.bold,
@@ -133,9 +133,8 @@ class MailBox extends StatelessWidget {
         Navigator.push(
             context,
             CupertinoPageRoute(
-                builder: (context) => WriteMail(
-                      user_id: user_id,
-                      to_user_id: to_user_id,
+                builder: (context) => WriteMail(text: '쪽지보내기',
+
                     )));
       },
       child: Column(

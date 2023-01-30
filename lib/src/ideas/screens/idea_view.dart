@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:beontteuk/buy_page.dart';
 import 'package:beontteuk/inmat/auth/inmat_auth.dart';
 import 'package:beontteuk/inmat/inmat_api/inmat_api.dart';
+import 'package:beontteuk/src/home/screens/searchedPage.dart';
 import 'package:beontteuk/src/ideas/screens/buy_page.dart';
 import 'package:beontteuk/src/report_page.dart';
 import 'package:beontteuk/utils/date_parse.dart';
@@ -19,6 +21,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/price_comma.dart';
+import '../../message/writeMail.dart';
 
 class IdeaView extends StatefulWidget {
   IdeaView({Key? key, required this.index}) : super(key: key);
@@ -64,15 +67,15 @@ class _IdeaViewState extends State<IdeaView> {
   int get price => map['price'];
 
   int get rating_cnt {
-    int rnd = Random().nextInt(45) + 1;
+    int rnd = Random().nextInt(45);
     return rnd;
   }
 
 // int get rating_cnt => map['rating_cnt'];
 
   double get rating {
-    double rnd = Random().nextDouble()*5;
-    return double.parse(rnd.toStringAsFixed(2)) ;
+    double rnd = Random().nextDouble() * 4 + 1;
+    return double.parse(rnd.toStringAsFixed(2));
   }
 
   // double get rating => map['rating'].toDouble();
@@ -104,8 +107,8 @@ class _IdeaViewState extends State<IdeaView> {
 
   @override
   Widget build(BuildContext context) {
-    double rat=rating;
-    int rat_cnt=rating_cnt;
+    double rat = rating;
+    int rat_cnt = rating_cnt;
 
     if (!success) {
       return const Scaffold();
@@ -302,6 +305,12 @@ class _IdeaViewState extends State<IdeaView> {
                       InkWell(
                         onTap: () {
                           print("쪽지 보내기 페이지 이동 user_id: $user_id");
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => WriteMail(
+                                        text: '쪽지보내기',
+                                      )));
                         },
                         borderRadius: BorderRadius.circular(4),
                         child: Ink(
@@ -524,6 +533,12 @@ class _IdeaViewState extends State<IdeaView> {
                     if (isWriter) {
                       print("수정하기 페이지 이동 index: ${widget.index}");
                     } else {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) =>
+                                  PurchasePage(text: '구매하기')));
+
                       print("구매하기 페이지 이동 index: ${widget.index}");
                     }
                   },
@@ -566,7 +581,14 @@ class _IdeaViewState extends State<IdeaView> {
       padding: const EdgeInsets.only(right: 5.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(100),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => SearchedPage(text: tag),
+            ),
+          );
+        },
         child: Ink(
           height: 37,
           padding: const EdgeInsets.symmetric(horizontal: 20),

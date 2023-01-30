@@ -1,6 +1,7 @@
 import 'package:beontteuk/src/home/screens/searchedPage.dart';
 import 'package:beontteuk/src/home/widgets/search_input.dart';
 import 'package:beontteuk/utils/colorss.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +93,7 @@ class SearchPage extends StatelessWidget {
           child: Center(
             child: Text(
               "#$tag",
-              style: TextStyle(fontSize: 16, color: Colorss.text1),
+              style: LetterStyle(fontSize: 16, color: Colorss.text1),
             ),
           ),
         ),

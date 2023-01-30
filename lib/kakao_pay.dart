@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -9,14 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WriteMail extends StatefulWidget {
-  WriteMail({Key? key, required this.text}) : super(key: key);
+class KakaoPay extends StatefulWidget {
+  KakaoPay({Key? key, required this.text}) : super(key: key);
   final String text;
+
   @override
-  _WriteMailState createState() => _WriteMailState();
+  _KakaoPayState createState() => _KakaoPayState();
 }
 
-class _WriteMailState extends State<WriteMail> {
+class _KakaoPayState extends State<KakaoPay> {
   late WebViewController _controller;
 
   @override
@@ -33,9 +33,7 @@ class _WriteMailState extends State<WriteMail> {
       ..addJavaScriptChannel('MessageInvoker', onMessageReceived: (s) {
         print(s.message);
 
-
-
-        if (s.message == 'writeMessage') {
+        if (s.message == 'writeReport') {
           Navigator.pop(context);
           // Navigator.push(
           //     context,
@@ -44,7 +42,6 @@ class _WriteMailState extends State<WriteMail> {
           //           index: 1,
           //         )));
         }
-
       })
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
@@ -61,8 +58,7 @@ class _WriteMailState extends State<WriteMail> {
         ),
       );
     _controller.loadRequest(
-      Uri.parse('https://beontteuk.github.io/send_message_page_text/'),
-
+      Uri.parse('https://chaeyeongmoon.github.io/idea-chargepoint/'),
     );
 
     success = true;
@@ -72,7 +68,7 @@ class _WriteMailState extends State<WriteMail> {
   Future<void> loadHtmlFromAssets(String filename, controller) async {
     String fileText = await rootBundle.loadString(filename);
     controller.loadUrl(Uri.dataFromString(fileText,
-        mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+            mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString());
   }
 
@@ -86,11 +82,12 @@ class _WriteMailState extends State<WriteMail> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(widget.text),
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.ac_unit)),
       ),
       body: success
           ? WebViewWidget(
-        controller: _controller,
-      )
+              controller: _controller,
+            )
           : CircularProgressIndicator(),
     );
   }

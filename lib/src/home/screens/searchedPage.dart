@@ -74,7 +74,7 @@ class _SearchedPageState extends State<SearchedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("검색"),
+        title: Text(widget.text),
       ),
       body: Column(
         children: [

@@ -2,6 +2,8 @@ import 'package:beontteuk/inmat/auth/inmat_auth.dart';
 import 'package:beontteuk/inmat/inmat_api/inmat_api.dart';
 import 'package:beontteuk/src/account/screens/login_page.dart';
 import 'package:beontteuk/utils/colorss.dart';
+import 'package:beontteuk/utils/letter_space_text_style.dart';
+import 'package:beontteuk/utils/price_comma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -46,6 +48,8 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         title: Text("마이페이지"),
+        toolbarHeight: 45,
+        surfaceTintColor: Colors.white,
       ),
       body: !success
           ? Container()
@@ -84,7 +88,7 @@ class _ProfileState extends State<Profile> {
                     },
                     child: Text(
                       profile['nickname'],
-                      style: TextStyle(
+                      style: LetterStyle(
                         color: Colorss.text1,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -114,7 +118,7 @@ class _ProfileState extends State<Profile> {
                           children: [
                             Text(
                               '내 포인트',
-                              style: TextStyle(
+                              style: LetterStyle(
                                 color: Colorss.text1,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -122,7 +126,7 @@ class _ProfileState extends State<Profile> {
                             ),
                             Text(
                               '23,402 P',
-                              style: TextStyle(
+                              style: LetterStyle(
                                 color: Colorss.text1,
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
@@ -139,7 +143,7 @@ class _ProfileState extends State<Profile> {
                           children: [
                             Text(
                               '내 판매글',
-                              style: TextStyle(
+                              style: LetterStyle(
                                 color: Colorss.text1,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -147,7 +151,7 @@ class _ProfileState extends State<Profile> {
                             ),
                             Text(
                               '3개',
-                              style: TextStyle(
+                              style: LetterStyle(
                                 color: Colorss.text1,
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
@@ -164,7 +168,7 @@ class _ProfileState extends State<Profile> {
                           children: [
                             Text(
                               '내 컬렉션',
-                              style: TextStyle(
+                              style: LetterStyle(
                                 color: Colorss.text1,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -172,7 +176,7 @@ class _ProfileState extends State<Profile> {
                             ),
                             Text(
                               '32개',
-                              style: TextStyle(
+                              style: LetterStyle(
                                 color: Colorss.text1,
                                 fontSize: 16,
                                 // fontWeight: FontWeight.bold,
@@ -202,7 +206,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       Text(
                         "내가 구매한 글",
-                        style: TextStyle(
+                        style: LetterStyle(
                           color: Colorss.text1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -218,7 +222,7 @@ class _ProfileState extends State<Profile> {
                   //         padding: const EdgeInsets.all(16.0),
                   //         child: Text(
                   //           "판매글",
-                  //           style: TextStyle(
+                  //           style: LetterStyle(
                   //             color: Colorss.text1,
                   //             fontSize: 16,
                   //             fontWeight: FontWeight.bold,
@@ -232,7 +236,7 @@ class _ProfileState extends State<Profile> {
                   //     //     padding: const EdgeInsets.all(16.0),
                   //     //     child: Text(
                   //     //       "판매글",
-                  //     //       style: TextStyle(
+                  //     //       style: LetterStyle(
                   //     //         color: Colorss.text1,
                   //     //         fontSize: 16,
                   //     //         fontWeight: FontWeight.bold,
@@ -246,7 +250,7 @@ class _ProfileState extends State<Profile> {
                   //     //     padding: const EdgeInsets.all(16.0),
                   //     //     child: Text(
                   //     //       "판매글",
-                  //     //       style: TextStyle(
+                  //     //       style: LetterStyle(
                   //     //         color: Colorss.text1,
                   //     //         fontSize: 16,
                   //     //         fontWeight: FontWeight.bold,
@@ -260,7 +264,7 @@ class _ProfileState extends State<Profile> {
                   //     //     padding: const EdgeInsets.all(16.0),
                   //     //     child: Text(
                   //     //       "판매글",
-                  //     //       style: TextStyle(
+                  //     //       style: LetterStyle(
                   //     //         color: Colorss.text1,
                   //     //         fontSize: 16,
                   //     //         fontWeight: FontWeight.bold,
@@ -312,7 +316,7 @@ class _HomesState extends State<Homes> {
     return Column(
       children: [
         for (int index = 0; index < ideas.length; index++)
-          HomeCard(
+          HomeCardd(
             onclick: () {
               // print()
               Navigator.push(
@@ -329,9 +333,120 @@ class _HomesState extends State<Homes> {
             index: ideas[index]['index'],
             price: ideas[index]['price'],
             thumbnaill: ideas[index]['thumbnail'],
-            bookmarkCount: ideas[index]['collection_cnt'],
           )
       ],
+    );
+  }
+}
+
+
+class HomeCardd extends StatelessWidget {
+  const HomeCardd(
+      {Key? key,
+
+        required this.thumbnaill,
+        required this.title,
+        required this.created,
+        required this.price,
+        required this.index,
+        required this.onclick})
+      : super(key: key);
+
+  final int index;
+  final String thumbnaill;
+  final String title;
+  final String created;
+  final int price;
+
+  final VoidCallback onclick;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onclick,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: 84,
+                  height: 84,
+                  color: Colors.grey,
+                  child: Image.network(thumbnaill, fit: BoxFit.cover),
+                ),
+                // Positioned(
+                //   bottom: 8,
+                //   right: 7,
+                //   child: Container(
+                //     width: 32,
+                //     height: 32,
+                //     decoration: BoxDecoration(
+                //       color: Colors.red,
+                //       shape: BoxShape.circle,
+                //     ),
+                //   ),
+                // ),
+              ],
+            ),
+            const SizedBox(
+              width: 14,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    style: const LetterStyle(
+                      color: Colorss.text1,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "닉네임 · $created",
+                            style: const LetterStyle(
+                              color: Colorss.text2,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "${PriceComma.getComma(price)}P",
+                            style: const LetterStyle(
+                              color: Colorss.text1,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

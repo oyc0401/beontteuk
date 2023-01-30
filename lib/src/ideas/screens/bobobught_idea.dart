@@ -3,6 +3,7 @@ import 'package:beontteuk/inmat/auth/inmat_auth.dart';
 import 'package:beontteuk/inmat/inmat_api/inmat_api.dart';
 import 'package:beontteuk/src/ideas/screens/buy_page.dart';
 import 'package:beontteuk/src/report_page.dart';
+import 'package:beontteuk/src/write_review.dart';
 import 'package:beontteuk/utils/date_parse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/price_comma.dart';
+import '../../message/writeMail.dart';
 
 class BoboughtIdea extends StatefulWidget {
   BoboughtIdea({Key? key, required this.index}) : super(key: key);
@@ -120,8 +122,11 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
         );
       } else {
         result.add(Padding(
-            padding: const EdgeInsets.only(top: 9.0,left: 16,
-              right: 16,),
+            padding: const EdgeInsets.only(
+              top: 9.0,
+              left: 16,
+              right: 16,
+            ),
             child: Image.network(
               m['content'],
               fit: BoxFit.fitWidth,
@@ -342,9 +347,9 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                       ),
                       child: Center(
                         child: Text(
-                          '아이디어열람',
+                          '아이디어 열람',
                           style: const LetterStyle(
-                            fontSize: 16,
+                            fontSize: 18,
                             // fontWeight: FontWeight.bold,
                             color: Colorss.brand,
                           ),
@@ -395,7 +400,16 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => WriteReview(
+                                  text: "리뷰 작성",
+                                ),
+                              ),
+                            );
+                          },
                           child: Ink(
                             height: 49,
                             decoration: BoxDecoration(
@@ -406,7 +420,7 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                               child: Text(
                                 '리뷰 작성',
                                 style: const LetterStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
@@ -492,6 +506,14 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                   InkWell(
                     onTap: () {
                       print("쪽지 보내기 페이지 이동 user_id: $user_id");
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => WriteMail(
+                            text: '쪽지보내기',
+                          ),
+                        ),
+                      );
                     },
                     borderRadius: BorderRadius.circular(4),
                     child: Ink(

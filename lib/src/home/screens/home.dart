@@ -14,6 +14,27 @@ import '../../ideas/screens/idea_view.dart';
 import '../../write/screens/write_title.dart';
 import 'search_page.dart';
 
+List<String> category_list = [
+  '요리/식품',
+  '취미',
+  '친환경',
+  '사무',
+  'IT',
+  '패션/의류',
+  '인테리어',
+  '??',
+  '최신 아이디어',
+];
+List<String> category_image = [
+  'assets/home/strawberries-1396330_1920.jpg',
+  'assets/home/knitting-1268932_1920.jpg',
+  'assets/home/leaf-1453071_1920.jpg',
+  'assets/home/laptop-3196481_1920.jpg',
+  'assets/home/laptop-2620118_1920.jpg',
+  'assets/home/closet-912694_1920.jpg',
+  'assets/home/living-room-2732939_1920.jpg',
+];
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -39,7 +60,21 @@ class _HomePageState extends State<HomePage> {
 
   List ideas = [];
 
-  int clickIndex = -1;
+  int clickIndex = 8;
+
+  void happy(int flower) async {
+    if (clickIndex == flower) {
+      clickIndex = 8;
+      setState(() {});
+      ideas = await InMatApi.community.getIdeas();
+      setState(() {});
+    } else {
+      clickIndex = flower;
+      setState(() {});
+      ideas = await InMatApi.community.getCategory(flower);
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +82,14 @@ class _HomePageState extends State<HomePage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title:  Row(
+            title: Row(
               children: const [
                 SizedBox(
                   width: 29,
                   height: 29,
                   // color: Colors.grey,
-                  child: Image(
-                      image:
-                      AssetImage('assets/home/LOGO_rounded.png')),
+                  child:
+                      Image(image: AssetImage('assets/home/LOGO_rounded.png')),
                 ),
                 SizedBox(
                   width: 7,
@@ -74,7 +108,6 @@ class _HomePageState extends State<HomePage> {
             expandedHeight: 180.0,
             toolbarHeight: 45,
             surfaceTintColor: Colors.white,
-
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
                 padding: const EdgeInsets.all(16),
@@ -200,95 +233,60 @@ class _HomePageState extends State<HomePage> {
                   ),
                   // for (int i = 0; i <= 10; i++)
                   Category(
-                    onclick: () async{
-                      clickIndex = 0;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(0);
-                      setState(() {
-                      });
+                    onclick: ()  {
+                      happy(0);
                     },
-                    text: "요리/식품",
-                    url: "assets/home/strawberries-1396330_1920.jpg",
+                    text: category_list[0],
+                    url: category_image[0],
                     active: clickIndex == 0,
                   ),
                   Category(
-                    onclick: () async{
-                      clickIndex = 1;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(1);
-                      setState(() {
-                      });
+                    onclick: ()  {
+                      happy(1);
                     },
-                    text: "취미",
-                    url: "assets/home/knitting-1268932_1920.jpg",
+                    text: category_list[1],
+                    url: category_image[1],
                     active: clickIndex == 1,
                   ),
                   Category(
-                    onclick: () async{
-                      clickIndex = 2;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(2);
-                      setState(() {
-                      });
+                    onclick: () async {
+                      happy(2);
                     },
-                    text: "친환경",
-                    url: "assets/home/leaf-1453071_1920.jpg",
+                    text: category_list[2],
+                    url: category_image[2],
                     active: clickIndex == 2,
                   ),
                   Category(
-                    onclick: () async{
-                      clickIndex = 3;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(3);
-                      setState(() {
-                      });
+                    onclick: () async {
+                      happy(3);
                     },
-                    text: "사무",
-                    url: "assets/home/laptop-3196481_1920.jpg",
+                    text: category_list[3],
+                    url: category_image[3],
                     active: clickIndex == 3,
                   ),
 
                   Category(
-                    onclick: () async{
-                      clickIndex = 4;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(4);
-                      setState(() {
-                      });
+                    onclick: () async {
+                      happy(4);
                     },
-                    text: "IT",
-                    url: "assets/home/laptop-2620118_1920.jpg",
+                    text: category_list[4],
+                    url: category_image[4],
                     active: clickIndex == 4,
                   ),
                   Category(
-                    onclick: () async{
-                      clickIndex = 5;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(5);
-                      setState(() {
-                      });
+                    onclick: () async {
+                      happy(5);
                     },
-                    text: "패션/의류",
-                    url: "assets/home/closet-912694_1920.jpg",
+                    text: category_list[5],
+                    url: category_image[5],
                     active: clickIndex == 5,
                   ),
                   Category(
-                    onclick: () async{
-                      clickIndex = 6;
-                       setState(() {
-                      });
-                      ideas = await InMatApi.community.getCategory(6);
-                      setState(() {
-                      });
+                    onclick: () async {
+                      happy(6);
                     },
-                    text: "인테리어",
-                    url: "assets/home/living-room-2732939_1920.jpg",
+                    text: category_list[6],
+                    url: category_image[6],
                     active: clickIndex == 6,
                   ),
                 ],
@@ -300,11 +298,11 @@ class _HomePageState extends State<HomePage> {
               height: 34,
             ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                '최신 아이디어',
+                category_list[clickIndex],
                 style: LetterStyle(
                     color: Colorss.text1,
                     fontSize: 20,
@@ -375,7 +373,6 @@ class _HomePageState extends State<HomePage> {
         height: 62,
         child: FloatingActionButton(
           elevation: 2,
-
           backgroundColor: Colorss.brand,
           shape: CircleBorder(side: BorderSide.none),
           child: SvgPicture.asset(

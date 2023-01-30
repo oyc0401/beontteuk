@@ -1,4 +1,7 @@
 
+
+
+
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -9,14 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WriteMail extends StatefulWidget {
-  WriteMail({Key? key, required this.text}) : super(key: key);
+
+
+class WriteReview extends StatefulWidget {
+  WriteReview({Key? key, required this.text}) : super(key: key);
   final String text;
   @override
-  _WriteMailState createState() => _WriteMailState();
+  _WriteReviewState createState() => _WriteReviewState();
 }
 
-class _WriteMailState extends State<WriteMail> {
+class _WriteReviewState extends State<WriteReview> {
   late WebViewController _controller;
 
   @override
@@ -35,7 +40,7 @@ class _WriteMailState extends State<WriteMail> {
 
 
 
-        if (s.message == 'writeMessage') {
+        if (s.message == 'writeReview') {
           Navigator.pop(context);
           // Navigator.push(
           //     context,
@@ -61,7 +66,7 @@ class _WriteMailState extends State<WriteMail> {
         ),
       );
     _controller.loadRequest(
-      Uri.parse('https://beontteuk.github.io/send_message_page_text/'),
+      Uri.parse('https://beontteuk.github.io/review_test_repo/'),
 
     );
 
