@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../fails.dart';
+
 class BoughtIdea extends StatefulWidget {
   BoughtIdea({Key? key, required this.text}) : super(key: key);
   final String text;
@@ -35,8 +37,8 @@ class _BoughtIdeaState extends State<BoughtIdea> {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => WriteReviewPage(
-                        text: "flqbwkrtjd",
+                  builder: (context) => NoWeb(
+                        url: "https://beontteuk.github.io/report_page/",
                       )));
         }
 

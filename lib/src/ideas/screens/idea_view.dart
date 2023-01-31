@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../inapp.dart';
+import '../../../fails.dart';
 import '../../../utils/colorss.dart';
 import '../../../utils/letter_space_text_style.dart';
 import 'dart:convert';
@@ -528,8 +528,10 @@ class _IdeaViewState extends State<IdeaView> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) =>
-                                  BuyPageInAppWebViewScreen()));
+                              builder: (context) => NoWeb(
+                                    url:
+                                        'https://chaeyeongmoon.github.io/buontteok-purchase/',
+                                  )));
 
                       print("구매하기 페이지 이동 index: ${widget.index}");
                     }
