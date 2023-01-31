@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../inapp.dart';
 import '../../../utils/colorss.dart';
 import '../../../utils/letter_space_text_style.dart';
 import 'dart:convert';
@@ -528,7 +529,7 @@ class _IdeaViewState extends State<IdeaView> {
                           context,
                           CupertinoPageRoute(
                               builder: (context) =>
-                                  PurchasePage(text: '구매하기')));
+                                  BuyPageInAppWebViewScreen()));
 
                       print("구매하기 페이지 이동 index: ${widget.index}");
                     }

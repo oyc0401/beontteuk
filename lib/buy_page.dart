@@ -86,56 +86,58 @@ class _PurchasePageState extends State<PurchasePage> {
       appBar: AppBar(
         title: Text(widget.text),
       ),
-      body: success
-          ? Stack(
-              children: [
-                WebViewWidget(
-                  controller: _controller,
-                ),
-
-                Positioned(
-                    top:270,
-                    child: InkWell(
-                      onTap: () {
-
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => KakaoPay(text: '충전하기')));
 
 
-                      },
-                      child: Container(
-                        width: 360,
-                        height: 60,
-                        color: Colors.transparent,
-                      ),
-                    )),
-
-                Positioned(
-                    top: 540,
-                    child: InkWell(
-                      onTap: () {
-                        Message.showMessage("구매 했습니다.");
-
-
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => NavigatePage(),
-                          ),
-                          (route) => false,
-                        );
-                      },
-                      child: Container(
-                        width: 360,
-                        height: 170,
-                        color: Colors.transparent,
-                      ),
-                    )),
-              ],
-            )
-          : CircularProgressIndicator(),
+      // body: success
+      //     ? Stack(
+      //         children: [
+      //           WebViewWidget(
+      //             controller: _controller,
+      //           ),
+      //
+      //           Positioned(
+      //               top:270,
+      //               child: InkWell(
+      //                 onTap: () {
+      //
+      //                   Navigator.push(
+      //                       context,
+      //                       CupertinoPageRoute(
+      //                           builder: (context) => KakaoPay(text: '충전하기')));
+      //
+      //
+      //                 },
+      //                 child: Container(
+      //                   width: 360,
+      //                   height: 60,
+      //                   color: Colors.transparent,
+      //                 ),
+      //               )),
+      //
+      //           Positioned(
+      //               top: 540,
+      //               child: InkWell(
+      //                 onTap: () {
+      //                   Message.showMessage("구매 했습니다.");
+      //
+      //
+      //                   Navigator.pushAndRemoveUntil(
+      //                     context,
+      //                     CupertinoPageRoute(
+      //                       builder: (context) => NavigatePage(),
+      //                     ),
+      //                     (route) => false,
+      //                   );
+      //                 },
+      //                 child: Container(
+      //                   width: 360,
+      //                   height: 170,
+      //                   color: Colors.transparent,
+      //                 ),
+      //               )),
+      //         ],
+      //       )
+      //     : CircularProgressIndicator(),
     );
   }
 }
