@@ -74,22 +74,28 @@ class _IdeaViewState extends State<IdeaView> {
 // int get rating_cnt => map['rating_cnt'];
 
   double get rating {
-    double rnd = Random().nextDouble() * 4 + 1;
+    double rnd = Random().nextDouble() + 4;
     return double.parse(rnd.toStringAsFixed(2));
   }
 
   // double get rating => map['rating'].toDouble();
 
-  String get tag {
-    List list = contents['hashTags'];
-    if (list.isEmpty) {
-      return "";
-    } else if (list.length == 1) {
-      return list[0];
-    } else {
-      return "${list[0]}, ${list[1]}";
-    }
+  List<String> get tags {
+    print(contents['hashTags'].cast<String>());
+    List<String> li = contents['hashTags'].cast<String>();
+    return li;
   }
+
+  List<String> category_list = [
+    '요리/식품',
+    '생활',
+    '패션/의류',
+    'IT',
+    '??',
+    '최신 아이디어',
+  ];
+
+  String get tag => category_list[category];
 
   String get nickname => map['nickname'];
 
@@ -381,22 +387,7 @@ class _IdeaViewState extends State<IdeaView> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    children: [
-                      hashTag("꼬막"),
-                      hashTag("와사비"),
-                      hashTag("신박한"),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      hashTag("쫄깃쫄깃"),
-                      hashTag("존맛"),
-                    ],
-                  ),
+                  HashTagWidget(list: tags),
                   const SizedBox(
                     height: 23,
                   ),
@@ -575,37 +566,6 @@ class _IdeaViewState extends State<IdeaView> {
       ),
     );
   }
-
-  Widget hashTag(String tag) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 5.0),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(100),
-        onTap: () {
-          Navigator.push(
-            context,
-            CupertinoPageRoute(
-              builder: (context) => SearchedPage(text: tag),
-            ),
-          );
-        },
-        child: Ink(
-          height: 37,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: const Color(0xffECECEC),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Center(
-            child: Text(
-              "#$tag",
-              style: const LetterStyle(fontSize: 16, color: Colorss.text1),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class ReviewStar extends StatelessWidget {
@@ -732,6 +692,98 @@ class ReviewCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HashTagWidget extends StatefulWidget {
+  const HashTagWidget({Key? key, required this.list}) : super(key: key);
+
+  final List<String> list;
+
+  @override
+  State<HashTagWidget> createState() => _HashTagWidgetState();
+}
+
+class _HashTagWidgetState extends State<HashTagWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for (int i = 0; i < 3 && i < widget.list.length; i++) {
+      first.add(widget.list[i]);
+    }
+
+    for (int i = 3; i < 6 && i < widget.list.length; i++) {
+      last.add(widget.list[i]);
+    }
+  }
+
+  List<String> first = [];
+  List<String> last = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 37,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              for (String text in first) hashTag(text),
+            ],
+          ),
+        ),
+        last.length == 0
+            ? Container()
+            : const SizedBox(
+                height: 12,
+              ),
+        last.length == 0
+            ? Container()
+            : Container(
+                height: 37,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    for (String text in last) hashTag(text),
+                  ],
+                ),
+              ),
+      ],
+    );
+  }
+
+  Widget hashTag(String tag) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5.0),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(100),
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => SearchedPage(text: tag),
+            ),
+          );
+        },
+        child: Ink(
+          height: 37,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: const Color(0xffECECEC),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Center(
+            child: Text(
+              "#$tag",
+              style: const LetterStyle(fontSize: 16, color: Colorss.text1),
+            ),
+          ),
+        ),
       ),
     );
   }

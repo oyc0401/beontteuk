@@ -16,23 +16,17 @@ import 'search_page.dart';
 
 List<String> category_list = [
   '요리/식품',
-  '취미',
-  '친환경',
-  '사무',
-  'IT',
+  '생활',
   '패션/의류',
-  '인테리어',
+  'IT',
   '??',
   '최신 아이디어',
 ];
 List<String> category_image = [
   'assets/home/strawberries-1396330_1920.jpg',
-  'assets/home/knitting-1268932_1920.jpg',
-  'assets/home/leaf-1453071_1920.jpg',
-  'assets/home/laptop-3196481_1920.jpg',
-  'assets/home/laptop-2620118_1920.jpg',
-  'assets/home/closet-912694_1920.jpg',
   'assets/home/living-room-2732939_1920.jpg',
+  'assets/home/closet-912694_1920.jpg',
+  'assets/home/laptop-2620118_1920.jpg',
 ];
 
 class HomePage extends StatefulWidget {
@@ -52,7 +46,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   init() async {
+    setState(() {
+      success = false;
+    });
     ideas = await InMatApi.community.getIdeas();
+    success = true;
 
     print(ideas);
     setState(() {});
@@ -60,21 +58,27 @@ class _HomePageState extends State<HomePage> {
 
   List ideas = [];
 
-  int clickIndex = 8;
+  int clickIndex = 5;
 
   void happy(int flower) async {
     if (clickIndex == flower) {
-      clickIndex = 8;
+      clickIndex = 5;
+      success = false;
       setState(() {});
       ideas = await InMatApi.community.getIdeas();
+      success = true;
       setState(() {});
     } else {
       clickIndex = flower;
+      success = false;
       setState(() {});
       ideas = await InMatApi.community.getCategory(flower);
+      success = true;
       setState(() {});
     }
   }
+
+  bool success = false;
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   // for (int i = 0; i <= 10; i++)
                   Category(
-                    onclick: ()  {
+                    onclick: () {
                       happy(0);
                     },
                     text: category_list[0],
@@ -241,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                     active: clickIndex == 0,
                   ),
                   Category(
-                    onclick: ()  {
+                    onclick: () {
                       happy(1);
                     },
                     text: category_list[1],
@@ -263,31 +267,6 @@ class _HomePageState extends State<HomePage> {
                     text: category_list[3],
                     url: category_image[3],
                     active: clickIndex == 3,
-                  ),
-
-                  Category(
-                    onclick: () async {
-                      happy(4);
-                    },
-                    text: category_list[4],
-                    url: category_image[4],
-                    active: clickIndex == 4,
-                  ),
-                  Category(
-                    onclick: () async {
-                      happy(5);
-                    },
-                    text: category_list[5],
-                    url: category_image[5],
-                    active: clickIndex == 5,
-                  ),
-                  Category(
-                    onclick: () async {
-                      happy(6);
-                    },
-                    text: category_list[6],
-                    url: category_image[6],
-                    active: clickIndex == 6,
                   ),
                 ],
               ),
@@ -339,6 +318,66 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               childCount: ideas.length,
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: Container(
+              height: 39 - 8,
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: !success
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => WriteTitle()));
+                      },
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: Color(0xffF3F3F3),
+                        ),
+                        height: 100,
+                        child: Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '더이상 최신 아이디어가 없습니다.\n반짝이는 아이디어를 직접 작성해 보세요!',
+                                  style: LetterStyle(
+                                    color: Colorss.text2,
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Text(
+                                  '글 작성하기 >',
+                                  style: LetterStyle(
+                                    color: Color(0xff3FA0FA),
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                    ),
+                  ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 24,
             ),
           ),
 
@@ -468,7 +507,7 @@ class HomeCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "닉네임 · $created",
+                            "침착한 비버 · $created",
                             style: const LetterStyle(
                               color: Colorss.text2,
                               fontSize: 14,

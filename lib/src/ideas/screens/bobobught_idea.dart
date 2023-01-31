@@ -20,6 +20,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../utils/price_comma.dart';
 import '../../message/writeMail.dart';
+import 'idea_view.dart';
 
 class BoboughtIdea extends StatefulWidget {
   BoboughtIdea({Key? key, required this.index}) : super(key: key);
@@ -94,6 +95,12 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
     return m;
   }
 
+  List<String> get tags {
+    print(contents['hashTags'].cast<String>());
+    List<String> li = contents['hashTags'].cast<String>();
+    return li;
+  }
+
   Widget contentWidget(Map contents) {
     print(contents);
 
@@ -104,7 +111,7 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
         result.add(
           Padding(
             padding: const EdgeInsets.only(
-              top: 9.0,
+              bottom: 25.0,
               left: 16,
               right: 16,
             ),
@@ -123,7 +130,7 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
       } else {
         result.add(Padding(
             padding: const EdgeInsets.only(
-              top: 9.0,
+              bottom: 15.0,
               left: 16,
               right: 16,
             ),
@@ -307,22 +314,7 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    children: [
-                      hashTag("꼬막"),
-                      hashTag("와사비"),
-                      hashTag("신박한"),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      hashTag("쫄깃쫄깃"),
-                      hashTag("존맛"),
-                    ],
-                  ),
+                  HashTagWidget(list: tags,),
                   const SizedBox(
                     height: 27,
                   ),
@@ -393,9 +385,12 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
                       contentWidget(contents),
                       SizedBox(
-                        height: 25,
+                        height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -430,7 +425,7 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
                         ),
                       ),
                       SizedBox(
-                        height: 24,
+                        height: 60,
                       ),
                       Container(
                         width: double.infinity,
@@ -650,29 +645,7 @@ class _BoboughtIdeaState extends State<BoboughtIdea> {
     );
   }
 
-  Widget hashTag(String tag) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 5.0),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(100),
-        onTap: () {},
-        child: Ink(
-          height: 37,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: const Color(0xffECECEC),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Center(
-            child: Text(
-              "#$tag",
-              style: const LetterStyle(fontSize: 16, color: Colorss.text1),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+
 }
 
 class ReviewStar extends StatelessWidget {

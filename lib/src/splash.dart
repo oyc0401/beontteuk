@@ -35,16 +35,16 @@ class _SplashPageState extends State<SplashPage> {
   navigate() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    // await login();
-
-    Navigator.pushAndRemoveUntil(context,
-      CupertinoPageRoute(builder: (context) => productMode()), (
-          route) => false,);
-
+    await login();
 
     // Navigator.pushAndRemoveUntil(context,
-    //   CupertinoPageRoute(builder: (context) => NavigatePage()), (
+    //   CupertinoPageRoute(builder: (context) => productMode()), (
     //       route) => false,);
+
+
+    Navigator.pushAndRemoveUntil(context,
+      CupertinoPageRoute(builder: (context) => NavigatePage()), (
+          route) => false,);
 
 
   }

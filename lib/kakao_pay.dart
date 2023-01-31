@@ -1,3 +1,5 @@
+import 'package:beontteuk/src/navigation/navigation.dart';
+import 'package:beontteuk/utils/toast.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -82,12 +84,38 @@ class _KakaoPayState extends State<KakaoPay> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(widget.text),
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.ac_unit)),
+        // leading: IconButton(onPressed: () {}, icon: Icon(Icons.ac_unit)),
       ),
       body: success
-          ? WebViewWidget(
-              controller: _controller,
-            )
+          ? Stack(
+            children: [
+              WebViewWidget(
+                  controller: _controller,
+                ),
+
+              Positioned(
+                  top: 620,
+                  child: InkWell(
+                    onTap: () {
+                      Message.showMessage("구매 했습니다.");
+
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => NavigatePage(),
+                        ),
+                            (route) => false,
+                      );
+                    },
+                    child: Container(
+                      width: 360,
+                      height: 170,
+                      color: Colors.transparent,
+                    ),
+                  ))
+            ],
+          )
           : CircularProgressIndicator(),
     );
   }

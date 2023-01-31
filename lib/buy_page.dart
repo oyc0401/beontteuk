@@ -1,3 +1,4 @@
+import 'package:beontteuk/src/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -9,6 +10,10 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'kakao_pay.dart';
+import 'utils/toast.dart';
+
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PurchasePage extends StatefulWidget {
   PurchasePage({Key? key, required this.text}) : super(key: key);
@@ -24,6 +29,15 @@ class _PurchasePageState extends State<PurchasePage> {
   @override
   initState() {
     super.initState();
+    print(WebViewPlatform.instance)
+    ;
+    // if(kIsWeb){
+    //   WebViewPlatform.instance = WebViewPlatform.;
+    // }
+
+
+
+
     init();
   }
 
@@ -32,19 +46,6 @@ class _PurchasePageState extends State<PurchasePage> {
   init() async {
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..addJavaScriptChannel('MessageInvoker', onMessageReceived: (s) {
-        print(s.message);
-
-        if (s.message == 'writeReport') {
-          Navigator.pop(context);
-          // Navigator.push(
-          //     context,
-          //     CupertinoPageRoute(
-          //         builder: (context) => WriteReviewPage(
-          //           index: 1,
-          //         )));
-        }
-      })
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
@@ -84,18 +85,55 @@ class _PurchasePageState extends State<PurchasePage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(widget.text),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => KakaoPay(text: '충전하기')));
-            },
-            icon: Icon(Icons.ac_unit)),
       ),
       body: success
-          ? WebViewWidget(
-              controller: _controller,
+          ? Stack(
+              children: [
+                WebViewWidget(
+                  controller: _controller,
+                ),
+
+                Positioned(
+                    top:270,
+                    child: InkWell(
+                      onTap: () {
+
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => KakaoPay(text: '충전하기')));
+
+
+                      },
+                      child: Container(
+                        width: 360,
+                        height: 60,
+                        color: Colors.transparent,
+                      ),
+                    )),
+
+                Positioned(
+                    top: 540,
+                    child: InkWell(
+                      onTap: () {
+                        Message.showMessage("구매 했습니다.");
+
+
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => NavigatePage(),
+                          ),
+                          (route) => false,
+                        );
+                      },
+                      child: Container(
+                        width: 360,
+                        height: 170,
+                        color: Colors.transparent,
+                      ),
+                    )),
+              ],
             )
           : CircularProgressIndicator(),
     );
